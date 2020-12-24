@@ -1,0 +1,90 @@
+version: '3'
+
+networks:
+  laravel:
+
+
+services:
+  nginx:
+    networks:
+      - laravel
+    image: nginx:stable-alpine
+    container_name: nginx
+    # bind our PC 8080 port to the nginx 80 port
+    ports: 
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    # services that are depended on will BOOT before this service
+    depends_on: 
+      - php
+      - mysql
+
+
+  mysql:
+    networks:
+      - laravel
+    image: mysql:5.7.22
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    ports: 
+      - "3306:3306"
+    volumes: 
+      - ./mysql:/var/lib/mysql
+    environment: 
+      MYSQL_DATABASE: meep
+      MYSQL_USER: meep
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+
+  php:
+    # Building the image instead of loading an image from the hub, cause laravel requires pdo
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: php
+    volumes: 
+      - ./src:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - laravel
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    volumes: 
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - laravel
+
+  #command: docker-compose run --rm npm "your npm command"
+  npm:
+    image: node:13.7
+    container_name: npm
+    volumes: 
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    networks: 
+      - laravel
+
+  #command: docker-compose run --rm artisan "artisan command"
+  artisan:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: artisan
+    volumes: 
+      - ./src:/var/www/html
+    depends_on: 
+      - mysql
+    working_dir: /var/www/html
+    entrypoint: ['php','/var/www/html/artisan']
+    networks: 
+      - laravel
