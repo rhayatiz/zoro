@@ -41,6 +41,18 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
 
+  phpmyadmin:
+    networks: 
+      - laravel
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    environment: 
+      - PMA_HOST=mysql
+    ports: 
+      - "8088:80"
+
+
   php:
     # Building the image instead of loading an image from the hub, cause laravel requires pdo
     build: 
