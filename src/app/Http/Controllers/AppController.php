@@ -33,7 +33,7 @@ class AppController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->username = $request->username;
-        $user->password = bcrypt($request->username);
+        $user->password = bcrypt($request->password);
         $user->save();
 
         Auth::login($user);

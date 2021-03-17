@@ -1951,6 +1951,13 @@ __webpack_require__.r(__webpack_exports__);
         _this.loading = false;
         _this.initiated = true;
       });
+    },
+    getHistory: function getHistory() {
+      this.req.get('https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=EUR&apikey=HJG1A2UT9PH8VMGO').then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -2001,7 +2008,7 @@ __webpack_require__.r(__webpack_exports__);
       this.app.req.post('auth/logout').then(function () {
         _this.app.user = null;
 
-        _this.$router.push('/login');
+        _this.$router.push('/');
       });
     }
   }
@@ -2024,7 +2031,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['app'],
+  mounted: function mounted() {
+    this.getHistory();
+  },
+  methods: {
+    getHistory: function getHistory() {
+      this.app.req.get('https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=EUR&apikey=HJG1A2UT9PH8VMGO').then(function (response) {
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2073,6 +2094,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['app'],
   data: function data() {
     return {
+      loading: false,
       name: '',
       username: '',
       password: '',
@@ -2084,6 +2106,7 @@ __webpack_require__.r(__webpack_exports__);
     onLogin: function onLogin() {
       var _this = this;
 
+      this.loading = true;
       this.errors = [];
 
       if (!this.username) {
@@ -2100,13 +2123,13 @@ __webpack_require__.r(__webpack_exports__);
           password: this.password
         };
         this.app.req.post('auth/login', data).then(function (response) {
+          // console.log(response.data);
           _this.app.user = response.data;
 
           _this.$router.push("/");
-
-          console.log(response);
         })["catch"](function (error) {
           console.log(error);
+          _this.loading = false;
         });
       }
     }
@@ -37873,8 +37896,8 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-        _c("li", { staticClass: "nav-item" }, [
-          _vm._v(_vm._s(_vm.app.user ? _vm.app.user.name : ""))
+        _c("li", { staticClass: "nav-item mr-4" }, [
+          _vm._v(_vm._s(_vm.app.user ? "Hello, " + _vm.app.user.name : ""))
         ]),
         _vm._v(" "),
         _vm.app.user == null
@@ -37895,7 +37918,9 @@ var render = function() {
               ],
               1
             )
-          : _c("div", { on: { click: _vm.logout } }, [_vm._v("Déconnexion")])
+          : _c("a", { staticClass: "nav-item", on: { click: _vm.logout } }, [
+              _vm._v("Déconnexion")
+            ])
       ])
     ])
   ])
@@ -37930,7 +37955,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [
-      _c("h1", [_vm._v("home page")])
+      _c("h1", [_vm._v("home pageee")])
     ])
   }
 ]
@@ -38046,7 +38071,7 @@ var render = function() {
         "div",
         {
           staticClass: "mt-2 btn-sm btn-success text-center",
-          attrs: { type: "submit" },
+          attrs: { disabled: _vm.loading, type: "submit" },
           on: {
             click: function($event) {
               return _vm.onLogin()

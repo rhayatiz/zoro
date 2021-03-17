@@ -9,12 +9,12 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">{{ app.user ? app.user.name : '' }}</li>
+                <li class="nav-item mr-4">{{ app.user ? 'Hello, '+app.user.name : '' }}</li>
                 <div v-if="app.user == null">
                     <router-link to="/login" class="nav-item">Connexion</router-link>
                     <router-link to="/register" class="nav-item">Inscription</router-link>
                 </div>
-                <div v-else @click="logout">Déconnexion</div>
+                <a class="nav-item" v-else @click="logout">Déconnexion</a>
             </ul>
         </nav>
     </div>
@@ -33,7 +33,7 @@ export default {
         logout(){
             this.app.req.post('auth/logout').then(() => {
                 this.app.user = null;
-                this.$router.push('/login');
+                this.$router.push('/');
             })
         }
     }

@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div v-on:click="onLogin()" class="mt-2 btn-sm btn-success text-center" type="submit">Connexion</div>
+            <div :disabled="loading" v-on:click="onLogin()" class="mt-2 btn-sm btn-success text-center" type="submit">Connexion</div>
         </form> 
         </div> 
 </template>
@@ -37,6 +37,7 @@ export default {
 
     data(){
         return {
+            loading: false,
             name: '',
             username: '',
             password: '',
@@ -46,6 +47,7 @@ export default {
     },
     methods : {
         onLogin: function(){
+            this.loading = true;
             this.errors = [];
             if (!this.username){
                 this.errors.push("Username is required");
@@ -61,11 +63,12 @@ export default {
                 };
 
                 this.app.req.post('auth/login', data).then(response => {
+                    // console.log(response.data);
                     this.app.user = response.data;
                     this.$router.push("/");
-                    console.log(response);
                 }).catch(error => {
                     console.log(error);
+                    this.loading = false;
                 })
             }
         }
