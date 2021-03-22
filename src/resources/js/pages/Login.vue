@@ -13,18 +13,18 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="name">Username</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" placeholder="username" v-model="username">
+                    <input class="form-control" type="text" placeholder="username" v-model="username" autocorrect="off" autocapitalize="none">
                 </div>
             </div>
             
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="name">Password</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="password" placeholder="password" v-model="password">
+                    <input v-on:keyup.enter="onLogin()" class="form-control" type="password" placeholder="password" v-model="password">
                 </div>
             </div>
 
-            <div :disabled="loading" v-on:click="onLogin()" class="mt-2 btn-sm btn-success text-center" type="submit">Connexion</div>
+            <div v-bind:class="{ 'deactivate': loading }" v-on:click="onLogin()" class="mt-2 btn-sm btn-success text-center">Connexion</div>
         </form> 
         </div> 
 </template>
@@ -63,14 +63,13 @@ export default {
                 };
 
                 this.app.req.post('auth/login', data).then(response => {
-                    // console.log(response.data);
-                    this.app.user = response.data;
-                    this.$router.push("/");
+                        this.app.user = response.data;
+                        this.$router.push("/platform");
                 }).catch(error => {
-                    console.log(error);
-                    this.loading = false;
+                        this.errors.push("Identification impossible.")
                 })
             }
+            this.loading = false;
         }
 
     }
@@ -78,5 +77,12 @@ export default {
 </script>
 
 <style>
+.deactivate:hover{
+    cursor: none;
+    background-color: #92eeb9;
+}
 
+.deactivate{
+    background-color: #92eeb9;
+}
 </style>

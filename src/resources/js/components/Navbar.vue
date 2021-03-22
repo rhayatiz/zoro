@@ -1,10 +1,10 @@
 <template>
-    <div class="navbar-dark bg-info mb-2 ">
+    <div class="navbar-container navbar-dark mb-2">
         <nav class="container navbar navbar-expand-sm ">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <router-link to="/" class="nav-link">
-                    MTC
+                    <router-link to="/" class="nav-link text-dark">
+                    ZORO
                     </router-link>
                 </li>
             </ul>
@@ -33,13 +33,17 @@ export default {
         logout(){
             this.app.req.post('auth/logout').then(() => {
                 this.app.user = null;
-                this.$router.push('/');
+                this.$router.push('/login');
             })
         }
     }
 }
 </script>
 
-<style lang="">
-    
+<style>
+    .navbar-container {
+        background: #e9e7e7;
+        box-shadow:  6px 6px 12px #e2e0e0,
+                    -6px -6px 12px #f0eeee;
+    }
 </style>
