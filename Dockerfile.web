@@ -3,5 +3,5 @@ FROM php:7.2-fpm-alpine
 # Install php extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
-CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
