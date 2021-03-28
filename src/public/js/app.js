@@ -2947,6 +2947,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2956,8 +2959,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      loading: false,
       Cryptos: [],
-      search: '',
       price: ''
     };
   },
@@ -2965,6 +2968,7 @@ __webpack_require__.r(__webpack_exports__);
     this.getCryptoCurrenciesList();
   },
   methods: {
+    //returns list of cryptocurrencies to search input
     searchCryptocurrency: function searchCryptocurrency(input) {
       var result = [];
 
@@ -2972,11 +2976,14 @@ __webpack_require__.r(__webpack_exports__);
         return [];
       }
 
+      this.loading = true;
       this.Cryptos.forEach(function (crypto, index) {
         crypto.toLowerCase().includes(input.toLowerCase()) ? result.push(crypto) : null;
       });
+      this.loading = false;
       return result;
     },
+    //fetch cryptocurrencies from db on load
     getCryptoCurrenciesList: function getCryptoCurrenciesList() {
       var _this = this;
 
@@ -2990,6 +2997,7 @@ __webpack_require__.r(__webpack_exports__);
     doThis: function doThis(result) {
       this.getPrice(result);
     },
+    //fetch crypto price from Alphavantage when choosing crypto from list
     getPrice: function getPrice(cryptocurrency) {
       var _this2 = this;
 
@@ -3000,10 +3008,6 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     }
-  },
-  watch: {// search: function(){
-    //     this.searchCryptocurrency();
-    // }
   }
 });
 
@@ -39718,12 +39722,14 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", { staticClass: "col mt-5" }, [
-        _c("div", [_vm._v("Current Price : ")]),
-        _vm._v(" "),
-        _c("span", [_vm._v(_vm._s(_vm.price))]),
-        _vm._v(" "),
-        _vm.price
+        _vm.loading
+          ? _c("div", [_vm._v("\n            Chargement. . .\n        ")])
+          : _vm.price
           ? _c("div", { staticClass: "row container" }, [
+              _c("div", [_vm._v("Current Price : ")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.price))]),
+              _vm._v(" "),
               _c("div", { staticClass: "btn btn-sm btn-success mr-1" }, [
                 _vm._v("Buy")
               ]),
