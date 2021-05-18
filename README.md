@@ -18,7 +18,7 @@ ZORO is a papertrading cryptocurrency exchange platform.
 - Install composer dependencies ```composer install```
 - Copy and configure your local **.env** file with your database informations ```cp .env.example .env```
 - Run migrations & seeders ```php artisan migrate --seed```
-- launch server ``` php artisan serve ``` (note: use a different port if you're using xampp to avoid conflicts with ``` php artisan serve --port=80 ``` 
+- launch server ``` php artisan serve ``` (note: use a different port if you're using xampp to avoid conflicts ``` php artisan serve --port=80 ``` 
 - Go to localhost:80
 
 
