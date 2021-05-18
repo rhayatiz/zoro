@@ -27,7 +27,7 @@ class AppController extends Controller
 
         $user = User::where('username', $request->username)->first();
         if (isset($user)){
-            return response()->json(['error' => 'Nom d\'utilisateur existant']);
+            return response()->json(['error' => 'Nom d\'utilisateur existant'], 401);
         }
 
         $user = new User();

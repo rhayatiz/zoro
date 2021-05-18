@@ -12,4 +12,6 @@ class Cryptocurrency extends Model
      * @var string
      */
     protected $table = 'cryptocurrencies';
+    protected $fillable = ['code', 'name'];
+    public $timestamps = false;
 }

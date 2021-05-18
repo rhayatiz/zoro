@@ -1,26 +1,30 @@
 <template lang="">
     <div>
-
         <navbar :app="this"></navbar>
-        <spinner v-if="loading"></spinner>
-        <div v-else-if="initiated">
-            <router-view :app="this"/>
+        <div class="main-wrapper">
+            <spinner v-if="loading"></spinner>
+            <div v-else-if="initiated">
+                <router-view :app="this"/>
+            </div>
         </div>
-
+        <foot v-if="user" :app="this"></foot>
     </div>
 </template>
 
 
 <script>
 import Navbar from './components/Navbar';
+import Foot from './components/Foot';
 
 export default {
     name: 'app',
     components: {
-        Navbar
+        Navbar,
+        Foot
     },
     data(){
         return {
+            alphaVantageKey: 'HJG1A2UT9PH8VMGO',
             user: null,
             loading: false,
             initiated: false,
@@ -56,5 +60,4 @@ export default {
 </script>
 
 <style lang="">
-    
 </style>

@@ -61,7 +61,7 @@ export default {
                     username: this.username,
                     password: this.password,
                 };
-
+                
                 this.app.req.post('auth/login', data).then(response => {
                         this.app.user = response.data;
                         this.$router.push("/platform");

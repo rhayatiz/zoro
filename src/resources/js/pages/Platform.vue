@@ -5,11 +5,16 @@
             <div v-if="loading">
                 Chargement. . .
             </div>
-            <div v-else-if="price" class="row container">
-                <div>Current Price : </div>
-                <span>{{ price }}</span>
-                <div class="btn btn-sm btn-success mr-1">Buy</div>
-                <div class="btn btn-sm btn-danger">Sell</div>
+            <div v-else-if="price" class="row container d-flex flex-column main-wrapper">
+                <div class="row">
+                    <highcharts id="chart" :constructorType="'stockChart'" :options="chartOptions"></highcharts>
+                </div>
+                <div class="row">
+                    <div>Current Price : </div>
+                    <span>{{ price }}</span>
+                    <div class="btn btn-sm btn-success mr-1">Buy</div>
+                    <div class="btn btn-sm btn-danger">Sell</div>
+                </div>
             </div>
         </div>
     </div>
@@ -17,22 +22,46 @@
 
 <script>
 import Autocomplete from '@trevoreyre/autocomplete-vue';
+import ApexCharts from 'apexcharts';
 import '@trevoreyre/autocomplete-vue/dist/style.css';
+import Highcharts from "highcharts";
+import Stock from "highcharts/modules/stock";
+import {Chart} from 'highcharts-vue';
+
 
 export default {
     props: ['app'],
     components: {
-        Autocomplete
+        Autocomplete,
+        highcharts: Chart 
     },
     data(){ 
         return {
             loading: false,
             Cryptos : [],
-            price: ''
+            price: '',
+            chartOptions: {
+                navigator: {
+                    enabled: false
+                },
+                series: [{
+                    type: 'spline',
+                    data: [1,2,3] // sample data
+                }],
+                chart: {
+                    borderRadius: 15,
+                    shadow: true,
+                    margin: [50, 50, 50, 50],
+                },
+                scrollbar: {
+                    enabled: false
+                }
+            }
         }
     },
     mounted() {
         this.getCryptoCurrenciesList();
+        Stock(Highcharts);
     },
     methods : {
         //returns list of cryptocurrencies to search input
@@ -57,22 +86,50 @@ export default {
                 console.log(error);
             });
         },
-        doThis: function(result){
-            this.getPrice(result);
+        doThis: function(input){
+            Stock(Highcharts);
+            let cryptocurrencyCode = input.substring(1, input.indexOf(')'));
+            this.getPrice(cryptocurrencyCode);
+            this.getData(cryptocurrencyCode);
+            
         },
         //fetch crypto price from Alphavantage when choosing crypto from list
-        getPrice : function(cryptocurrency){
-            this.app.req.get('https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency='+cryptocurrency.substring(1, 4)+'&to_currency=EUR&apikey=HJG1A2UT9PH8VMGO').then(response => {
+        getPrice : function(cryptocurrencyCode){
+            this.app.req.get('https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency='+cryptocurrencyCode+'&to_currency=EUR&apikey='+this.app.alphaVantageKey).then(response => {
                 console.log(response.data);
-                this.price = response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
+                this.price = parseFloat(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate']).toFixed(2);
             }).catch(error => {
                 console.log(error);
             });
+        },
+
+        //get necessary data for the chart
+        getData: function(cryptocurrencyCode){
+            this.app.req.get('https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol='+cryptocurrencyCode+'&market=EUR&apikey='+this.app.alphaVantageKey)
+               .then(response => {
+                   console.log(response.data['Time Series (Digital Currency Daily)']);
+                   let series = [];
+                   for (var key in response.data['Time Series (Digital Currency Daily)']) {
+                       let timestamp = new Date(key).getTime();
+                       let val = parseFloat(response.data['Time Series (Digital Currency Daily)'][key]['4a. close (EUR)']).toFixed(2);
+                       series.push([timestamp, parseFloat(val)]);
+                       this.chartOptions.series[0].data = series;
+                    }
+               }).catch(error => {
+                   console.log(error);
+               })
         }
+
     }
 }
 </script>
 
 <style>
-    
+    #chart {
+        width: 100%;
+    }
+
+    .main-wrapper {
+        margin-bottom: 15vh;
+    }
 </style>
