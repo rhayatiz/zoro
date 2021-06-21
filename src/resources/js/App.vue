@@ -1,11 +1,17 @@
 <template lang="">
-    <div>
+    <div style="height:100%; width:100%;">
         <navbar :app="this"></navbar>
-        <div class="main-wrapper">
-            <spinner v-if="loading"></spinner>
-            <div v-else-if="initiated">
-                <router-view :app="this"/>
+        <div class="main-wrapper row h-100">
+
+            
+            <div class="main col-10 mx-auto">
+                <spinner v-if="loading"></spinner>
+                <div v-else-if="initiated">
+                    <router-view :app="this"/>
+                </div>
             </div>
+
+            
         </div>
         <foot v-if="user" :app="this"></foot>
     </div>
@@ -15,12 +21,14 @@
 <script>
 import Navbar from './components/Navbar';
 import Foot from './components/Foot';
+import Sidebar from './components/Sidebar';
 
 export default {
     name: 'app',
     components: {
         Navbar,
-        Foot
+        Foot,
+        Sidebar
     },
     data(){
         return {
@@ -59,5 +67,12 @@ export default {
 };
 </script>
 
-<style lang="">
+<style>
+    html {
+        height: auto;
+    }
+    
+    body{
+        height: 100%;
+    }
 </style>

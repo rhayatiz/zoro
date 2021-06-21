@@ -1,7 +1,7 @@
 <template lang="">
     <div class="container mt-4">
-        <autocomplete @submit="doThis" :search="searchCryptocurrency" placeholder="Search a cryptocurrency"></autocomplete>
-        <div class="col mt-5">
+        <autocomplete class="text-dark" @submit="doThis" :search="searchCryptocurrency" placeholder="Search a cryptocurrency"></autocomplete>
+        <div class="col mt-4">
             <div v-if="loading">
                 Chargement. . .
             </div>
@@ -9,11 +9,14 @@
                 <div class="row">
                     <highcharts id="chart" :constructorType="'stockChart'" :options="chartOptions"></highcharts>
                 </div>
-                <div class="row">
-                    <div>Current Price : </div>
-                    <span>{{ price }}</span>
-                    <div class="btn btn-sm btn-success mr-1">Buy</div>
-                    <div class="btn btn-sm btn-danger">Sell</div>
+                <div class="row mt-3 price-card">
+                    <div class="col-12 h2 my-3 text-dark">Current Price : <span>{{ price }}</span></div>
+                    <div class="col-12">
+                        <div class="row d-flex justify-content-around mb-3">
+                            <div class="col-5 btn btn-sm btn-danger">Sell</div>
+                            <div class="col-5 btn btn-sm btn-success">Buy</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,6 +62,7 @@ export default {
             }
         }
     },
+
     mounted() {
         this.getCryptoCurrenciesList();
         Stock(Highcharts);
@@ -105,16 +109,17 @@ export default {
 
         //get necessary data for the chart
         getData: function(cryptocurrencyCode){
+            this.chartOptions.series[0].data = [1, 2, 3, 4];
             this.app.req.get('https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol='+cryptocurrencyCode+'&market=EUR&apikey='+this.app.alphaVantageKey)
                .then(response => {
-                   console.log(response.data['Time Series (Digital Currency Daily)']);
+                //    console.log(response.data['Time Series (Digital Currency Daily)']);
                    let series = [];
                    for (var key in response.data['Time Series (Digital Currency Daily)']) {
                        let timestamp = new Date(key).getTime();
                        let val = parseFloat(response.data['Time Series (Digital Currency Daily)'][key]['4a. close (EUR)']).toFixed(2);
                        series.push([timestamp, parseFloat(val)]);
-                       this.chartOptions.series[0].data = series;
                     }
+                    this.chartOptions.series[0].data = series;
                }).catch(error => {
                    console.log(error);
                })
@@ -125,6 +130,11 @@ export default {
 </script>
 
 <style>
+    .price-card {
+        background-color: white;
+        border-radius: 20px;
+    }
+
     #chart {
         width: 100%;
     }
