@@ -9,7 +9,7 @@
                 </li>
             </ul>
 
-            <ul class="navbar-nav mx-auto">
+            <ul v-if="this.app.user != null" class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <router-link to="/platform" class="nav-item text-white">Platforme</router-link>
                 </li>

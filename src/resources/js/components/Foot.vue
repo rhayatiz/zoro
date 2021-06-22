@@ -12,7 +12,9 @@
             </div>
 
             <div class="menu d-flex flex-column">
-                <div class="text-center text-white my-auto">Mon portefeuille</div>
+                <div class="text-center text-white my-auto">
+                    <router-link to="/Wallet" class="text-white">Mon portefeuille</router-link>
+                </div>
             </div>
         </div>
     </div>

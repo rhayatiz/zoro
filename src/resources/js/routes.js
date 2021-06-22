@@ -2,6 +2,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Platform from './pages/Platform';
+import Wallet from './pages/Wallet';
 
 export default [
     {
@@ -23,5 +24,10 @@ export default [
         path: '/platform',
         component: Platform,
         name: 'platform'
+    },
+    {
+        path: '/Wallet',
+        component: Wallet,
+        name: 'wallet'
     }
 ];

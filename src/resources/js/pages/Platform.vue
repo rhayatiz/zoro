@@ -9,12 +9,26 @@
                 <div class="row">
                     <highcharts id="chart" :constructorType="'stockChart'" :options="chartOptions"></highcharts>
                 </div>
-                <div class="row mt-3 price-card">
-                    <div class="col-12 h2 my-3 text-dark">Current Price : <span>{{ price }}</span></div>
-                    <div class="col-12">
-                        <div class="row d-flex justify-content-around mb-3">
-                            <div class="col-5 btn btn-sm btn-danger">Sell</div>
-                            <div class="col-5 btn btn-sm btn-success">Buy</div>
+                <div class="row mt-3 price-card p-2">
+                    <div class="price-card-inner mx-auto">
+                        <div class="col-12 h2 my-3 text-dark font-weight-light">Current Price : <span class="font-weight-bold">{{ price }}</span>EUR</div>
+                        <div class="col-12">
+                            <div class="row d-flex justify-content-around mb-3">
+                                <div class="py-2 w-100 px-3">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col">
+                                                <input v-bind="quantity" type="text" class="form-control" placeholder="Quantity">
+                                            </div>
+                                            <div class="col">
+                                                <input v-bind="total" type="text" class="form-control" placeholder="Total (€)">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                    <div class="col-3 btn btn-sm btn-danger shadow">Sell</div>
+                                    <div class="col-3 btn btn-sm btn-success shadow">Buy</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -40,9 +54,12 @@ export default {
     },
     data(){ 
         return {
+            action: '',
             loading: false,
             Cryptos : [],
             price: '',
+            quantity: '',
+            total: '',
             chartOptions: {
                 navigator: {
                     enabled: false
@@ -122,7 +139,8 @@ export default {
                     this.chartOptions.series[0].data = series;
                }).catch(error => {
                    console.log(error);
-               })
+               });
+               this.action = '';
         }
 
     }
@@ -133,6 +151,7 @@ export default {
     .price-card {
         background-color: white;
         border-radius: 20px;
+        border: 2px solid rgb(204, 204, 204);
     }
 
     #chart {
