@@ -1,7 +1,7 @@
 <template lang="">
     <div style="height:100%; width:100%;">
         <navbar :app="this"></navbar>
-        <div class="main-wrapper row h-100">
+        <div class="main-wrapper h-100">
 
             
             <div class="main col-10 mx-auto">

@@ -8,7 +8,7 @@
 
             <div class="menu d-flex flex-column">
                 <div class="text-center text-white">Montant disponible</div>
-                <div class="text-center pill bg-light">68 930,29€</div>
+                <div class="text-center pill bg-light"><span id="available-money">{{ availableMoney }}</span> €</div>
             </div>
 
             <div class="menu d-flex flex-column">
@@ -22,7 +22,24 @@
 
 <script>
 export default {
+    data() {
+        return {
+            availableMoney: 0        
+        }
+    },
+
+    mounted() {
+        this.availableMoney = this.formatAvailableMoney();
+    },
     
+    methods: {
+        formatAvailableMoney: function(){
+            let x = this.$parent.user.wallet.available_money;
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            return parts.join(".");
+        }
+    },
 }
 </script>
 
@@ -48,7 +65,7 @@ export default {
 .foot{
     color: rgb(26, 26, 26);
     width: 100%;
-    height: 10vh;
+    height: 75px;
     border-top: 1px solid rgb(243, 243, 243);
     position: fixed;
     bottom: 0;

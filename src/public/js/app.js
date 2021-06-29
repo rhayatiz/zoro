@@ -2817,7 +2817,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      availableMoney: 0
+    };
+  },
+  mounted: function mounted() {
+    this.availableMoney = this.formatAvailableMoney();
+  },
+  methods: {
+    formatAvailableMoney: function formatAvailableMoney() {
+      var x = this.$parent.user.wallet.available_money;
+      var parts = x.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      return parts.join(".");
+    }
+  }
+});
 
 /***/ }),
 
@@ -3151,6 +3170,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3165,9 +3230,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      action: false,
       loading: false,
       Cryptos: [],
       price: '',
+      quantity: '',
+      total: '',
       chartOptions: {
         navigator: {
           enabled: false
@@ -3255,6 +3323,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+      this.action = '';
     }
   }
 });
@@ -3376,6 +3445,132 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Wallet.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/Wallet.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -7857,7 +8052,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.pill[data-v-89c0c74e] {\r\n    border-radius: 10px;\n}\n.wl-green[data-v-89c0c74e] {\r\n    background-color: rgb(107, 185, 133);\r\n    color: rgb(9, 110, 42);\n}\n.wl-red[data-v-89c0c74e] {\r\n    background-color: rgb(185, 107, 107);\r\n    color: rgb(110, 9, 9);\n}\n.menu[data-v-89c0c74e] {\r\n    vertical-align: middle;\n}\n.foot[data-v-89c0c74e]{\r\n    color: rgb(26, 26, 26);\r\n    width: 100%;\r\n    height: 10vh;\r\n    border-top: 1px solid rgb(243, 243, 243);\r\n    position: fixed;\r\n    bottom: 0;\r\n    z-index: 10;\r\n    background:rgba(0,0,0,0.5);\n}\r\n", ""]);
+exports.push([module.i, "\n.pill[data-v-89c0c74e] {\r\n    border-radius: 10px;\n}\n.wl-green[data-v-89c0c74e] {\r\n    background-color: rgb(107, 185, 133);\r\n    color: rgb(9, 110, 42);\n}\n.wl-red[data-v-89c0c74e] {\r\n    background-color: rgb(185, 107, 107);\r\n    color: rgb(110, 9, 9);\n}\n.menu[data-v-89c0c74e] {\r\n    vertical-align: middle;\n}\n.foot[data-v-89c0c74e]{\r\n    color: rgb(26, 26, 26);\r\n    width: 100%;\r\n    height: 75px;\r\n    border-top: 1px solid rgb(243, 243, 243);\r\n    position: fixed;\r\n    bottom: 0;\r\n    z-index: 10;\r\n    background:rgba(0,0,0,0.5);\n}\r\n", ""]);
 
 // exports
 
@@ -7952,7 +8147,26 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.price-card {\n    background-color: white;\n    border-radius: 20px;\n}\n#chart {\n    width: 100%;\n}\n.main-wrapper {\n    margin-bottom: 15vh;\n}\n", ""]);
+exports.push([module.i, "\n.price-card {\n    background-color: white;\n    border-radius: 20px;\n    border: 2px solid rgb(204, 204, 204);\n}\n#chart {\n    width: 100%;\n}\n.main-wrapper {\n    margin-bottom: 75px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Wallet.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/Wallet.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.pill {\r\n    border-radius: 10px;\n}\n.wl-green {\r\n    background-color: rgb(161, 219, 186);\r\n    color: rgb(9, 110, 42);\n}\n.wl-red {\r\n    background-color: rgb(219, 157, 157);\r\n    color: rgb(128, 25, 25);\n}\nth, td {\r\n  vertical-align: middle !important;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -40141,6 +40355,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Wallet.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/Wallet.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Wallet.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Wallet.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -40746,7 +40990,7 @@ var render = function() {
     [
       _c("navbar", { attrs: { app: this } }),
       _vm._v(" "),
-      _c("div", { staticClass: "main-wrapper row h-100" }, [
+      _c("div", { staticClass: "main-wrapper h-100" }, [
         _c(
           "div",
           { staticClass: "main col-10 mx-auto" },
@@ -40788,50 +41032,58 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "foot pt-2" }, [
+    _c(
+      "div",
+      { staticClass: "container align-middle d-flex justify-content-between" },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "menu d-flex flex-column" }, [
+          _c("div", { staticClass: "text-center text-white" }, [
+            _vm._v("Montant disponible")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "text-center pill bg-light" }, [
+            _c("span", { attrs: { id: "available-money" } }, [
+              _vm._v(_vm._s(_vm.availableMoney))
+            ]),
+            _vm._v(" €")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "menu d-flex flex-column" }, [
+          _c(
+            "div",
+            { staticClass: "text-center text-white my-auto" },
+            [
+              _c(
+                "router-link",
+                { staticClass: "text-white", attrs: { to: "/Wallet" } },
+                [_vm._v("Mon portefeuille")]
+              )
+            ],
+            1
+          )
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "foot pt-2" }, [
+    return _c("div", { staticClass: "menu d-flex flex-column" }, [
+      _c("div", { staticClass: "text-center text-white" }, [
+        _vm._v("DAILY W/L")
+      ]),
+      _vm._v(" "),
       _c(
         "div",
-        {
-          staticClass: "container align-middle d-flex justify-content-between"
-        },
-        [
-          _c("div", { staticClass: "menu d-flex flex-column" }, [
-            _c("div", { staticClass: "text-center text-white" }, [
-              _vm._v("DAILY W/L")
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "pill wl-green text-center px-2 font-weight-bold"
-              },
-              [_vm._v("+213,12 (+6%)")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "menu d-flex flex-column" }, [
-            _c("div", { staticClass: "text-center text-white" }, [
-              _vm._v("Montant disponible")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "text-center pill bg-light" }, [
-              _vm._v("68 930,29€")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "menu d-flex flex-column" }, [
-            _c("div", { staticClass: "text-center text-white my-auto" }, [
-              _vm._v("Mon portefeuille")
-            ])
-          ])
-        ]
+        { staticClass: "pill wl-green text-center px-2 font-weight-bold" },
+        [_vm._v("+213,12 (+6%)")]
       )
     ])
   }
@@ -40874,23 +41126,25 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("ul", { staticClass: "navbar-nav mx-auto" }, [
-        _c(
-          "li",
-          { staticClass: "nav-item" },
-          [
+      this.app.user != null
+        ? _c("ul", { staticClass: "navbar-nav mx-auto" }, [
             _c(
-              "router-link",
-              {
-                staticClass: "nav-item text-white",
-                attrs: { to: "/platform" }
-              },
-              [_vm._v("Platforme")]
+              "li",
+              { staticClass: "nav-item" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "nav-item text-white",
+                    attrs: { to: "/platform" }
+                  },
+                  [_vm._v("Platforme")]
+                )
+              ],
+              1
             )
-          ],
-          1
-        )
-      ]),
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("ul", { staticClass: "navbar-nav ml-auto" }, [
         _c("li", { staticClass: "nav-item mr-4" }, [
@@ -41338,13 +41592,180 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "row mt-3 price-card" }, [
-                  _c("div", { staticClass: "col-12 h2 my-3 text-dark" }, [
-                    _vm._v("Current Price : "),
-                    _c("span", [_vm._v(_vm._s(_vm.price))])
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(0)
+                _c("div", { staticClass: "row mt-3 price-card p-2" }, [
+                  _c("div", { staticClass: "price-card-inner mx-auto" }, [
+                    _c("div", { staticClass: "row px-3" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-8 h2 text-dark font-weight-light" },
+                        [
+                          _vm._v("Current Price : "),
+                          _c("span", { staticClass: "font-weight-bold" }, [
+                            _vm._v(_vm._s(_vm.price))
+                          ]),
+                          _vm._v("EUR")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.action == false
+                        ? _c("div", { staticClass: "col-4" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "col btn btn-sm btn-danger shadow",
+                                on: {
+                                  click: function($event) {
+                                    _vm.action = "sell"
+                                  }
+                                }
+                              },
+                              [_vm._v("Sell")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "col btn btn-sm btn-success shadow",
+                                on: {
+                                  click: function($event) {
+                                    _vm.action = "buy"
+                                  }
+                                }
+                              },
+                              [_vm._v("Buy")]
+                            )
+                          ])
+                        : _c("div", { staticClass: "col-4" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "btn btn-sm btn-light float-right",
+                                on: {
+                                  click: function($event) {
+                                    _vm.action = false
+                                  }
+                                }
+                              },
+                              [_vm._v("X")]
+                            )
+                          ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.action == "buy"
+                      ? _c("div", { staticClass: "col-12" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "row d-flex justify-content-around mb-3"
+                            },
+                            [
+                              _c("div", { staticClass: "py-2 w-100 px-3" }, [
+                                _c("form", [
+                                  _c("div", { staticClass: "row" }, [
+                                    _c("div", { staticClass: "col" }, [
+                                      _c(
+                                        "input",
+                                        _vm._b(
+                                          {
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Quantity"
+                                            }
+                                          },
+                                          "input",
+                                          _vm.quantity,
+                                          false
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col" }, [
+                                      _c(
+                                        "input",
+                                        _vm._b(
+                                          {
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Total (€)"
+                                            }
+                                          },
+                                          "input",
+                                          _vm.total,
+                                          false
+                                        )
+                                      )
+                                    ])
+                                  ])
+                                ])
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm._m(0)
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.action == "Sell"
+                      ? _c("div", { staticClass: "col-12" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "row d-flex justify-content-around mb-3"
+                            },
+                            [
+                              _c("div", { staticClass: "py-2 w-100 px-3" }, [
+                                _c("form", [
+                                  _c("div", { staticClass: "row" }, [
+                                    _c("div", { staticClass: "col" }, [
+                                      _c(
+                                        "input",
+                                        _vm._b(
+                                          {
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Quantity"
+                                            }
+                                          },
+                                          "input",
+                                          _vm.quantity,
+                                          false
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col" }, [
+                                      _c(
+                                        "input",
+                                        _vm._b(
+                                          {
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Total (€)"
+                                            }
+                                          },
+                                          "input",
+                                          _vm.total,
+                                          false
+                                        )
+                                      )
+                                    ])
+                                  ])
+                                ])
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm._m(1)
+                        ])
+                      : _vm._e()
+                  ])
                 ])
               ]
             )
@@ -41359,15 +41780,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12" }, [
-      _c("div", { staticClass: "row d-flex justify-content-around mb-3" }, [
-        _c("div", { staticClass: "col-5 btn btn-sm btn-danger" }, [
-          _vm._v("Sell")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-5 btn btn-sm btn-success" }, [
-          _vm._v("Buy")
-        ])
+    return _c("div", { staticClass: "row align-content-middle px-3" }, [
+      _c("div", { staticClass: "btn btn-sm btn-success ml-auto" }, [
+        _vm._v("Buy")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row align-content-middle px-3" }, [
+      _c("div", { staticClass: "btn btn-sm btn-danger ml-auto" }, [
+        _vm._v("Sell")
       ])
     ])
   }
@@ -41561,6 +41986,236 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Wallet.vue?vue&type=template&id=2fd10242&":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/Wallet.vue?vue&type=template&id=2fd10242& ***!
+  \****************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mt-4 container text-white" }, [
+      _c("div", { staticClass: "row px-3" }, [
+        _c("h4", [
+          _c("i", { staticClass: "fas fa-wallet" }),
+          _vm._v(" Wallet ")
+        ]),
+        _c("span", { staticClass: "ml-auto font-weight-light align-right" }, [
+          _vm._v("15N8ZpPq7Te9d8h7pURjZ102bSR3h8n8oAM")
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "table",
+        { staticClass: "table table-striped table-light mt-3 rounded shadow" },
+        [
+          _c("thead", [
+            _c("tr", [
+              _c("th", [_vm._v("Cryptocurrency")]),
+              _vm._v(" "),
+              _c("th", { staticClass: "text-center" }, [_vm._v("Quantity")]),
+              _vm._v(" "),
+              _c("th", { staticClass: "text-center" }, [
+                _vm._v("24H Variation")
+              ]),
+              _vm._v(" "),
+              _c("th", { staticClass: "text-center" }, [
+                _vm._v("Initial Value")
+              ]),
+              _vm._v(" "),
+              _c("th", { staticClass: "text-center" }, [
+                _vm._v("Current Value")
+              ]),
+              _vm._v(" "),
+              _c("th", { staticClass: "text-center" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tbody", [
+            _c("tr", [
+              _c("td", [_vm._v("Ethereum")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("4")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [
+                _c("span", { staticClass: "pill wl-green px-2" }, [
+                  _vm._v("+6,23%")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("5423,26€")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "d-flex flex-column" }, [
+                _c("div", { staticClass: "btn btn-sm btn-success mb-1" }, [
+                  _vm._v("Buy")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "btn btn-sm btn-danger" }, [
+                  _vm._v("Sell")
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", [_vm._v("Bitcoin")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("0.23")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [
+                _c("span", { staticClass: "pill wl-red px-2" }, [
+                  _vm._v("-2,23%")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("5423,26€")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "d-flex flex-column" }, [
+                _c("div", { staticClass: "btn btn-sm btn-success mb-1" }, [
+                  _vm._v("Buy")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "btn btn-sm btn-danger" }, [
+                  _vm._v("Sell")
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", [_vm._v("DogeCoin")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("16")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [
+                _c("span", { staticClass: "pill wl-green px-2" }, [
+                  _vm._v("+6,23%")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("5423,26€")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "d-flex flex-column" }, [
+                _c("div", { staticClass: "btn btn-sm btn-success mb-1" }, [
+                  _vm._v("Buy")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "btn btn-sm btn-danger" }, [
+                  _vm._v("Sell")
+                ])
+              ])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "row px-3 mt-5" }, [
+        _c("h4", [
+          _c("i", { staticClass: "fas fa-history" }),
+          _vm._v(" Order history")
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "table",
+        { staticClass: "table table-striped table-light mt-3 rounded shadow" },
+        [
+          _c("thead", [
+            _c("tr", [
+              _c("th", [_vm._v("Order N#")]),
+              _vm._v(" "),
+              _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
+              _vm._v(" "),
+              _c("th", { staticClass: "text-center" }, [
+                _vm._v("Cryptocurrency")
+              ]),
+              _vm._v(" "),
+              _c("th", { staticClass: "text-center" }, [_vm._v("Price")]),
+              _vm._v(" "),
+              _c("th", { staticClass: "text-center" }, [_vm._v("Quantity")]),
+              _vm._v(" "),
+              _c("th", { staticClass: "text-center" }, [_vm._v("Total")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tbody", [
+            _c("tr", [
+              _c("td", [_vm._v("3210328982512")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [
+                _vm._v("12/12/2002 15:32")
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("Ethereum")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("2,32")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("2 912,13€")])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", [_vm._v("3210328982512")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [
+                _vm._v("12/12/2002 15:32")
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("Ethereum")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("1")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", [_vm._v("3210328982512")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [
+                _vm._v("12/12/2002 15:32")
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("Dogecoin")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("0,23€")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("1000")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("230,13€")])
+            ])
+          ])
+        ]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -58250,6 +58905,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/Wallet.vue":
+/*!***************************************!*\
+  !*** ./resources/js/pages/Wallet.vue ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Wallet_vue_vue_type_template_id_2fd10242___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Wallet.vue?vue&type=template&id=2fd10242& */ "./resources/js/pages/Wallet.vue?vue&type=template&id=2fd10242&");
+/* harmony import */ var _Wallet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Wallet.vue?vue&type=script&lang=js& */ "./resources/js/pages/Wallet.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Wallet_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Wallet.vue?vue&type=style&index=0&lang=css& */ "./resources/js/pages/Wallet.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Wallet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Wallet_vue_vue_type_template_id_2fd10242___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Wallet_vue_vue_type_template_id_2fd10242___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/Wallet.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/Wallet.vue?vue&type=script&lang=js&":
+/*!****************************************************************!*\
+  !*** ./resources/js/pages/Wallet.vue?vue&type=script&lang=js& ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Wallet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Wallet.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Wallet.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Wallet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/Wallet.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************!*\
+  !*** ./resources/js/pages/Wallet.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Wallet_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Wallet.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Wallet.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Wallet_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Wallet_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Wallet_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Wallet_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/Wallet.vue?vue&type=template&id=2fd10242&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/pages/Wallet.vue?vue&type=template&id=2fd10242& ***!
+  \**********************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Wallet_vue_vue_type_template_id_2fd10242___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Wallet.vue?vue&type=template&id=2fd10242& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Wallet.vue?vue&type=template&id=2fd10242&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Wallet_vue_vue_type_template_id_2fd10242___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Wallet_vue_vue_type_template_id_2fd10242___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/routes.js":
 /*!********************************!*\
   !*** ./resources/js/routes.js ***!
@@ -58263,6 +59005,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Register__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pages/Register */ "./resources/js/pages/Register.vue");
 /* harmony import */ var _pages_Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/Login */ "./resources/js/pages/Login.vue");
 /* harmony import */ var _pages_Platform__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Platform */ "./resources/js/pages/Platform.vue");
+/* harmony import */ var _pages_Wallet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/Wallet */ "./resources/js/pages/Wallet.vue");
+
 
 
 
@@ -58283,6 +59027,10 @@ __webpack_require__.r(__webpack_exports__);
   path: '/platform',
   component: _pages_Platform__WEBPACK_IMPORTED_MODULE_3__["default"],
   name: 'platform'
+}, {
+  path: '/Wallet',
+  component: _pages_Wallet__WEBPACK_IMPORTED_MODULE_4__["default"],
+  name: 'wallet'
 }]);
 
 /***/ }),

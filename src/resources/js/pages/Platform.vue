@@ -11,8 +11,18 @@
                 </div>
                 <div class="row mt-3 price-card p-2">
                     <div class="price-card-inner mx-auto">
-                        <div class="col-12 h2 my-3 text-dark font-weight-light">Current Price : <span class="font-weight-bold">{{ price }}</span>EUR</div>
-                        <div class="col-12">
+                        <div class="row px-3">
+                            <div class="col-8 h2 text-dark font-weight-light">Current Price : <span class="font-weight-bold">{{ price }}</span>EUR</div>
+                            <div v-if="action == false" class="col-4">
+                                        <div @click="action = 'sell'" class="col btn btn-sm btn-danger shadow">Sell</div>
+                                        <div @click="action = 'buy'" class="col btn btn-sm btn-success shadow">Buy</div>
+                            </div>
+                            <div v-else class="col-4">
+                                <div @click="action = false" class="btn btn-sm btn-light float-right">X</div>
+                            </div>
+                        </div>
+                        <!-- buy -->
+                        <div v-if="action == 'buy'"  class="col-12">
                             <div class="row d-flex justify-content-around mb-3">
                                 <div class="py-2 w-100 px-3">
                                     <form>
@@ -26,10 +36,32 @@
                                         </div>
                                     </form>
                                 </div>
-                                    <div class="col-3 btn btn-sm btn-danger shadow">Sell</div>
-                                    <div class="col-3 btn btn-sm btn-success shadow">Buy</div>
+                            </div>
+                            <div class="row align-content-middle px-3">
+                                <div class="btn btn-sm btn-success ml-auto">Buy</div>
                             </div>
                         </div>
+                        <!-- sell -->
+                        <div v-if="action == 'Sell'"  class="col-12">
+                            <div class="row d-flex justify-content-around mb-3">
+                                <div class="py-2 w-100 px-3">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col">
+                                                <input v-bind="quantity" type="text" class="form-control" placeholder="Quantity">
+                                            </div>
+                                            <div class="col">
+                                                <input v-bind="total" type="text" class="form-control" placeholder="Total (€)">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row align-content-middle px-3">
+                                <div class="btn btn-sm btn-danger ml-auto">Sell</div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -54,7 +86,7 @@ export default {
     },
     data(){ 
         return {
-            action: '',
+            action: false,
             loading: false,
             Cryptos : [],
             price: '',
@@ -112,7 +144,6 @@ export default {
             let cryptocurrencyCode = input.substring(1, input.indexOf(')'));
             this.getPrice(cryptocurrencyCode);
             this.getData(cryptocurrencyCode);
-            
         },
         //fetch crypto price from Alphavantage when choosing crypto from list
         getPrice : function(cryptocurrencyCode){
@@ -159,6 +190,6 @@ export default {
     }
 
     .main-wrapper {
-        margin-bottom: 15vh;
+        margin-bottom: 75px;
     }
 </style>
