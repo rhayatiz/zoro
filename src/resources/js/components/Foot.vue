@@ -37,7 +37,7 @@ export default {
             let x = this.$parent.user.wallet.available_money;
             var parts = x.toString().split(".");
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-            return parts.join(".");
+            return parts.join(",");
         }
     },
 }

@@ -4,7 +4,7 @@
         <div class="main-wrapper h-100">
 
             
-            <div class="main col-10 mx-auto">
+            <div class="main col col-md-10 mx-0 mx-md-auto">
                 <spinner v-if="loading"></spinner>
                 <div v-else-if="initiated">
                     <router-view :app="this"/>

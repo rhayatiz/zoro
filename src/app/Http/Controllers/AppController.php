@@ -10,7 +10,12 @@ use Illuminate\Support\Facades\Crypt;
 class AppController extends Controller
 {
     public function init(){
-        $user = User::with('wallet')->find(Auth::user()->id);
+        $user = Auth::user();
+        if(Auth::user()){
+            $user = User::with('wallet')->find(Auth::user()->id);
+        }else{
+            $user = null;
+        }
 
         return response()->json(['user' => $user], 200);
     }

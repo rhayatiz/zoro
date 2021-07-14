@@ -23,23 +23,7 @@
                         </div>
                         <!-- buy -->
                         <div v-if="action == 'buy'"  class="col-12">
-                            <div class="row d-flex justify-content-around mb-3">
-                                <div class="py-2 w-100 px-3">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col">
-                                                <input v-bind="quantity" type="text" class="form-control" placeholder="Quantity">
-                                            </div>
-                                            <div class="col">
-                                                <input v-bind="total" type="text" class="form-control" placeholder="Total (€)">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="row align-content-middle px-3">
-                                <div class="btn btn-sm btn-success ml-auto">Buy</div>
-                            </div>
+                            <PlatformBuy :app='this'/>
                         </div>
                         <!-- sell -->
                         <div v-if="action == 'Sell'"  class="col-12">
@@ -76,13 +60,15 @@ import '@trevoreyre/autocomplete-vue/dist/style.css';
 import Highcharts from "highcharts";
 import Stock from "highcharts/modules/stock";
 import {Chart} from 'highcharts-vue';
+import PlatformBuy from '../components/Platform-buy';
 
 
 export default {
     props: ['app'],
     components: {
         Autocomplete,
-        highcharts: Chart 
+        highcharts: Chart,
+        PlatformBuy: PlatformBuy
     },
     data(){ 
         return {
@@ -90,8 +76,6 @@ export default {
             loading: false,
             Cryptos : [],
             price: '',
-            quantity: '',
-            total: '',
             chartOptions: {
                 navigator: {
                     enabled: false
@@ -113,10 +97,19 @@ export default {
     },
 
     mounted() {
+        //Choose eth by default
+        this.DebugEth();
+
         this.getCryptoCurrenciesList();
         Stock(Highcharts);
     },
     methods : {
+        //Choose eth by default
+        DebugEth: function(){
+            console.log('Debugging is active ... -- Platform.vue@DebugEth();')
+            this.getPrice('ETH');
+        },
+
         //returns list of cryptocurrencies to search input
         searchCryptocurrency: function(input){
             var result = [];
