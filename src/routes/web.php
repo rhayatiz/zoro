@@ -18,6 +18,12 @@ Route::prefix('auth')->group(function(){
     Route::post('logout', 'AppController@logout');
 });
 
+
+/*****************************
+ * Orders
+ */
+Route::post('order/new', 'OrderController@store');
+
 Route::get('crypto/list', 'CryptocurrenciesController@list');
 
 

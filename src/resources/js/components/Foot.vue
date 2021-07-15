@@ -24,7 +24,7 @@
 export default {
     data() {
         return {
-            availableMoney: 0        
+            availableMoney: this.$parent.user.wallet.availableMoney     
         }
     },
 

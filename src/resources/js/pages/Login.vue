@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div v-bind:class="{ 'deactivate': loading }" v-on:click="onLogin()" class="mt-2 btn-sm btn-success text-center">Connexion</div>
+            <div v-bind:class="{ 'disabled': loading }" v-on:click="onLogin()" class="mt-2 btn-sm btn-success text-center cursor-pointer">Connexion</div>
         </form> 
         </div> 
 </template>

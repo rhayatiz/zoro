@@ -2775,6 +2775,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.loading = false;
         _this.initiated = true;
       });
+      console.log(this.user);
     },
     getHistory: function getHistory() {
       this.req.get('https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=EUR&apikey=HJG1A2UT9PH8VMGO').then(function (response) {
@@ -2822,7 +2823,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      availableMoney: 0
+      availableMoney: this.$parent.user.wallet.availableMoney
     };
   },
   mounted: function mounted() {
@@ -2941,6 +2942,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'PlatformBuy',
   data: function data() {
     return {
+      cryptocurrency: this.$parent.chosenCrypto,
       price: this.$parent.price,
       quantity: 0,
       total: '',
@@ -2949,43 +2951,50 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     init: function init() {},
-    //Validates quantity (integer)
-    checkQuantity: function checkQuantity() {
-      return true;
-    },
-    //Validates total (float)
-    checkTotal: function checkTotal() {
-      return true;
-    },
     //update total when quantity changes
     updateTotal: function updateTotal() {
-      if (this.checkQuantity) {
-        this.total = this.price * this.quantity; //if total exceeds available money, show error
-
-        if (this.$parent.$parent.user.wallet.available_money - this.total < 0) {
-          this.errors['not_enough_money'] = 'Vous n\'avez pas assez de liquidité.';
-          console.log('errerur');
-        } else {
-          this.errors.removeItem("not_enough_money");
-        }
-
-        console.log(this.errors);
-      }
+      // this.total = this.total.replace(/,/g, '.');
+      this.total = this.price * this.quantity;
+      this.hasEnoughMoney();
     },
     //update quantity when Total changes
     updateQuantity: function updateQuantity() {
-      if (this.checkTotal) {
-        this.quantity = (this.total / this.price).toFixed(4);
+      console.log(this.total);
+      console.log(this.total.replace(/,/g, '.')); // this.quantity = this.quantity.replace(/,/g, '.');
+
+      this.quantity = (this.total / this.price).toFixed(4);
+      this.hasEnoughMoney();
+    },
+    //if total exceeds available money, add error
+    hasEnoughMoney: function hasEnoughMoney() {
+      if (this.$parent.$parent.user.wallet.available_money - this.total < 0) {
+        this.errors.not_enough_money = 'Vous n\'avez pas assez de liquidité.';
+      } else {
+        delete this.errors.not_enough_money;
       }
     },
     buy: function buy() {
+      var _this = this;
+
       //check if user has enough money
       if (this.$parent.$parent.user.wallet.available_money - this.total > 0) {
-        console.log('executed');
-      } //confirm/cancel buy
-      //execute order
-      //snackbar order executed
+        //confirm/cancel buy
+        console.log('buying ' + this.cryptocurrency);
+        console.log('ammount ' + this.total); //execute order
 
+        var data = {
+          type: 'buy',
+          price: this.total,
+          quantity: this.quantity,
+          cryptocurrencyCode: this.cryptocurrency
+        };
+        this.$parent.app.req.post('order/new', data).then(function (response) {
+          _this.$parent.$parent.user = response.data.user;
+          console.log(_this.$parent.$parent.user);
+        })["catch"](function (error) {
+          console.log(error);
+        }); //snackbar order executed
+      }
     }
   },
   mounted: function mounted() {
@@ -3296,7 +3305,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -3313,6 +3321,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      chosenCrypto: '',
       action: false,
       loading: false,
       Cryptos: [],
@@ -3380,6 +3389,7 @@ __webpack_require__.r(__webpack_exports__);
       var cryptocurrencyCode = input.substring(1, input.indexOf(')'));
       this.getPrice(cryptocurrencyCode);
       this.getData(cryptocurrencyCode);
+      this.chosenCrypto = cryptocurrencyCode;
     },
     //fetch crypto price from Alphavantage when choosing crypto from list
     getPrice: function getPrice(cryptocurrencyCode) {
@@ -3545,9 +3555,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -41313,7 +41320,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Quantity" },
+                attrs: { type: "number", placeholder: "Quantity" },
                 domProps: { value: _vm.quantity },
                 on: {
                   keyup: function($event) {
@@ -41340,7 +41347,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Total (€)" },
+                attrs: { type: "number", placeholder: "Total (€)" },
                 domProps: { value: _vm.total },
                 on: {
                   keyup: function($event) {
@@ -41357,7 +41364,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          this.errors.length > 0
+          Object.keys(this.errors).length > 0
             ? _c("div", { staticClass: "row px-3" }, [
                 _c(
                   "ul",
@@ -41381,10 +41388,15 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "row align-content-middle px-3" }, [
       _c(
-        "div",
+        "button",
         {
           staticClass: "btn btn-sm btn-success ml-auto",
-          class: { disabled: this.errors.length > 0 },
+          attrs: {
+            disabled:
+              Object.keys(this.errors).length > 0 ||
+              _vm.total <= 0 ||
+              _vm.total == "NaN"
+          },
           on: {
             click: function($event) {
               return _vm.buy()
@@ -41730,8 +41742,8 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "mt-2 btn-sm btn-success text-center",
-          class: { deactivate: _vm.loading },
+          staticClass: "mt-2 btn-sm btn-success text-center cursor-pointer",
+          class: { disabled: _vm.loading },
           on: {
             click: function($event) {
               return _vm.onLogin()
@@ -41818,19 +41830,6 @@ var render = function() {
                       _vm._v(" "),
                       _vm.action == false
                         ? _c("div", { staticClass: "col-4" }, [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "col btn btn-sm btn-danger shadow",
-                                on: {
-                                  click: function($event) {
-                                    _vm.action = "sell"
-                                  }
-                                }
-                              },
-                              [_vm._v("Sell")]
-                            ),
-                            _vm._v(" "),
                             _c(
                               "div",
                               {
@@ -42219,10 +42218,6 @@ var staticRenderFns = [
               _c("td", { staticClass: "text-center" }, [_vm._v("5423,26€")]),
               _vm._v(" "),
               _c("td", { staticClass: "d-flex flex-column" }, [
-                _c("div", { staticClass: "btn btn-sm btn-success mb-1" }, [
-                  _vm._v("Buy")
-                ]),
-                _vm._v(" "),
                 _c("div", { staticClass: "btn btn-sm btn-danger" }, [
                   _vm._v("Sell")
                 ])
@@ -42245,10 +42240,6 @@ var staticRenderFns = [
               _c("td", { staticClass: "text-center" }, [_vm._v("5423,26€")]),
               _vm._v(" "),
               _c("td", { staticClass: "d-flex flex-column" }, [
-                _c("div", { staticClass: "btn btn-sm btn-success mb-1" }, [
-                  _vm._v("Buy")
-                ]),
-                _vm._v(" "),
                 _c("div", { staticClass: "btn btn-sm btn-danger" }, [
                   _vm._v("Sell")
                 ])
@@ -42271,10 +42262,6 @@ var staticRenderFns = [
               _c("td", { staticClass: "text-center" }, [_vm._v("5423,26€")]),
               _vm._v(" "),
               _c("td", { staticClass: "d-flex flex-column" }, [
-                _c("div", { staticClass: "btn btn-sm btn-success mb-1" }, [
-                  _vm._v("Buy")
-                ]),
-                _vm._v(" "),
                 _c("div", { staticClass: "btn btn-sm btn-danger" }, [
                   _vm._v("Sell")
                 ])

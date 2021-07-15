@@ -12,7 +12,7 @@ class Order extends Model
      * @var string
      */
     protected $table = 'orders';
-    protected $fillable = ['type', 'price', 'quantity', 'cryptocurrency_id', 'user_id', 'created_at', 'updated_at'];
+    protected $fillable = ['type', 'price', 'quantity', 'cryptocurrency_id', 'user_id'];
     public $timestamps = true;
 
     public function user()

@@ -14,7 +14,6 @@
                         <div class="row px-3">
                             <div class="col-8 h2 text-dark font-weight-light">Current Price : <span class="font-weight-bold">{{ price }}</span>EUR</div>
                             <div v-if="action == false" class="col-4">
-                                        <div @click="action = 'sell'" class="col btn btn-sm btn-danger shadow">Sell</div>
                                         <div @click="action = 'buy'" class="col btn btn-sm btn-success shadow">Buy</div>
                             </div>
                             <div v-else class="col-4">
@@ -72,6 +71,7 @@ export default {
     },
     data(){ 
         return {
+            chosenCrypto: '',
             action: false,
             loading: false,
             Cryptos : [],
@@ -137,6 +137,7 @@ export default {
             let cryptocurrencyCode = input.substring(1, input.indexOf(')'));
             this.getPrice(cryptocurrencyCode);
             this.getData(cryptocurrencyCode);
+            this.chosenCrypto = cryptocurrencyCode;
         },
         //fetch crypto price from Alphavantage when choosing crypto from list
         getPrice : function(cryptocurrencyCode){

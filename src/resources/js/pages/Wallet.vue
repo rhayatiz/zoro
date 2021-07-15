@@ -25,7 +25,6 @@
             <td class="text-center">1255,23€</td>
             <td class="text-center">5423,26€</td>
             <td class="d-flex flex-column">
-              <div class="btn btn-sm btn-success mb-1">Buy</div>
               <div class="btn btn-sm btn-danger">Sell</div>
             </td>
           </tr>
@@ -38,7 +37,6 @@
             <td class="text-center">1255,23€</td>
             <td class="text-center">5423,26€</td>
             <td class="d-flex flex-column">
-              <div class="btn btn-sm btn-success mb-1">Buy</div>
               <div class="btn btn-sm btn-danger">Sell</div>
             </td>
           </tr>
@@ -51,7 +49,6 @@
             <td class="text-center">1255,23€</td>
             <td class="text-center">5423,26€</td>
             <td class="d-flex flex-column">
-              <div class="btn btn-sm btn-success mb-1">Buy</div>
               <div class="btn btn-sm btn-danger">Sell</div>
             </td>
           </tr>

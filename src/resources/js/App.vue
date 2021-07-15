@@ -52,7 +52,8 @@ export default {
                 this.user = response.data.user;
                 this.loading = false;
                 this.initiated = true;
-            })
+            });
+            console.log(this.user);
         },
         getHistory : function(){
             this.req.get('https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=EUR&apikey=HJG1A2UT9PH8VMGO')
