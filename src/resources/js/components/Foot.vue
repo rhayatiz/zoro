@@ -24,15 +24,20 @@
 export default {
     data() {
         return {
-            availableMoney: this.$parent.user.wallet.availableMoney     
+            availableMoney: 0    
         }
     },
 
     mounted() {
+        this.init();
         this.availableMoney = this.formatAvailableMoney();
     },
     
     methods: {
+        init: function(){
+            console.log(this.$parent.user.wallet.available_money);
+            this.availableMoney = this.$parent.user.wallet.available_money;
+        },
         formatAvailableMoney: function(){
             let x = this.$parent.user.wallet.available_money;
             var parts = x.toString().split(".");

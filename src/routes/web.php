@@ -23,6 +23,7 @@ Route::prefix('auth')->group(function(){
  * Orders
  */
 Route::post('order/new', 'OrderController@store');
+Route::get('order/list', 'OrderController@list');
 
 Route::get('crypto/list', 'CryptocurrenciesController@list');
 

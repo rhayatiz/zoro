@@ -2823,13 +2823,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      availableMoney: this.$parent.user.wallet.availableMoney
+      availableMoney: 0
     };
   },
   mounted: function mounted() {
+    this.init();
     this.availableMoney = this.formatAvailableMoney();
   },
   methods: {
+    init: function init() {
+      console.log(this.$parent.user.wallet.available_money);
+      this.availableMoney = this.$parent.user.wallet.available_money;
+    },
     formatAvailableMoney: function formatAvailableMoney() {
       var x = this.$parent.user.wallet.available_money;
       var parts = x.toString().split(".");
@@ -2895,6 +2900,143 @@ __webpack_require__.r(__webpack_exports__);
         _this.$router.push('/login');
       });
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OrderHistory.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OrderHistory.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'OrderHistory',
+  data: function data() {
+    return {
+      orders: []
+    };
+  },
+  mounted: function mounted() {
+    this.fetchOrders();
+  },
+  methods: {
+    fetchOrders: function fetchOrders() {
+      var _this = this;
+
+      this.$parent.app.req.get('order/list').then(function (response) {
+        if (response.data.orders.length > 0) {
+          _this.orders = response.data.orders;
+          console.log(response.data.orders);
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'PlatformBuy',
+  data: function data() {
+    return {
+      ownedCryptos: this.$parent.$parent.user.wallet.owned_crypto
+    };
+  },
+  methods: {
+    init: function init() {
+      console.log(this.ownedCrypto);
+    }
+  },
+  mounted: function mounted() {
+    this.init();
   }
 });
 
@@ -3555,6 +3697,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_OrderHistory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/OrderHistory */ "./resources/js/components/OrderHistory.vue");
+/* harmony import */ var _components_Owned_crypto__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Owned-crypto */ "./resources/js/components/Owned-crypto.vue");
 //
 //
 //
@@ -3572,100 +3716,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['app'],
+  data: function data() {
+    return {};
+  },
+  components: {
+    OrderHistory: _components_OrderHistory__WEBPACK_IMPORTED_MODULE_0__["default"],
+    OwnedCrypto: _components_Owned_crypto__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  mounted: function mounted() {},
+  methods: {}
+});
 
 /***/ }),
 
@@ -41289,6 +41353,217 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OrderHistory.vue?vue&type=template&id=76951251&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OrderHistory.vue?vue&type=template&id=76951251& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "table",
+      { staticClass: "table table-striped table-light mt-3 rounded shadow" },
+      [
+        _vm._m(1),
+        _vm._v(" "),
+        this.orders.length == 0
+          ? _c("tbody", [_vm._m(2)])
+          : _c(
+              "tbody",
+              _vm._l(_vm.orders, function(order) {
+                return _c("tr", { key: order.id }, [
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v(_vm._s(order.id))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v(_vm._s(order.type))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v(_vm._s(order.created_at))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v(_vm._s(order.cryptocurrency.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v(_vm._s(order.price) + " €")
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v(_vm._s(order.quantity))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v(
+                      _vm._s((order.quantity * order.price).toFixed(2)) + " €"
+                    )
+                  ])
+                ])
+              }),
+              0
+            )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row px-3 mt-5" }, [
+      _c("h4", [
+        _c("i", { staticClass: "fas fa-history" }),
+        _vm._v(" Order history")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Order")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Cryptocurrency")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Total")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { staticClass: "text-center", attrs: { colspan: "7" } }, [
+        _vm._v("No Orders")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "table",
+      { staticClass: "table table-striped table-light mt-3 rounded shadow" },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        this.ownedCryptos.length == 0
+          ? _c("tbody", [_vm._m(1)])
+          : _c(
+              "tbody",
+              _vm._l(_vm.ownedCryptos, function(ownedCrypto) {
+                return _c("tr", { key: ownedCrypto.id }, [
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v(_vm._s(ownedCrypto.cryptocurrency.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v(_vm._s(ownedCrypto.quantity))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v(_vm._s(ownedCrypto.average_price))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [_vm._v("24h%")]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _vm._v("current_value €")
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [_vm._v("Sell")])
+                ])
+              }),
+              0
+            )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Cryptocurrency")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Average price")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("24H Variation")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Current Value")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { staticClass: "text-center", attrs: { colspan: "6" } }, [
+        _vm._v("Empty wallet")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Platform-buy.vue?vue&type=template&id=f2e32fd2&":
 /*!***************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Platform-buy.vue?vue&type=template&id=f2e32fd2& ***!
@@ -42157,200 +42432,29 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "mt-4 container text-white" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("OwnedCrypto"),
+      _vm._v(" "),
+      _c("OrderHistory")
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-4 container text-white" }, [
-      _c("div", { staticClass: "row px-3" }, [
-        _c("h4", [
-          _c("i", { staticClass: "fas fa-wallet" }),
-          _vm._v(" Wallet ")
-        ]),
-        _c("span", { staticClass: "ml-auto font-weight-light align-right" }, [
-          _vm._v("15N8ZpPq7Te9d8h7pURjZ102bSR3h8n8oAM")
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "table table-striped table-light mt-3 rounded shadow" },
-        [
-          _c("thead", [
-            _c("tr", [
-              _c("th", [_vm._v("Cryptocurrency")]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [_vm._v("Quantity")]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [
-                _vm._v("24H Variation")
-              ]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [
-                _vm._v("Initial Value")
-              ]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [
-                _vm._v("Current Value")
-              ]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("td", [_vm._v("Ethereum")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("4")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [
-                _c("span", { staticClass: "pill wl-green px-2" }, [
-                  _vm._v("+6,23%")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("5423,26€")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "d-flex flex-column" }, [
-                _c("div", { staticClass: "btn btn-sm btn-danger" }, [
-                  _vm._v("Sell")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [_vm._v("Bitcoin")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("0.23")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [
-                _c("span", { staticClass: "pill wl-red px-2" }, [
-                  _vm._v("-2,23%")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("5423,26€")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "d-flex flex-column" }, [
-                _c("div", { staticClass: "btn btn-sm btn-danger" }, [
-                  _vm._v("Sell")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [_vm._v("DogeCoin")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("16")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [
-                _c("span", { staticClass: "pill wl-green px-2" }, [
-                  _vm._v("+6,23%")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("5423,26€")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "d-flex flex-column" }, [
-                _c("div", { staticClass: "btn btn-sm btn-danger" }, [
-                  _vm._v("Sell")
-                ])
-              ])
-            ])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "row px-3 mt-5" }, [
-        _c("h4", [
-          _c("i", { staticClass: "fas fa-history" }),
-          _vm._v(" Order history")
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "table table-striped table-light mt-3 rounded shadow" },
-        [
-          _c("thead", [
-            _c("tr", [
-              _c("th", [_vm._v("Order N#")]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [
-                _vm._v("Cryptocurrency")
-              ]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [_vm._v("Price")]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [_vm._v("Quantity")]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [_vm._v("Total")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("td", [_vm._v("3210328982512")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [
-                _vm._v("12/12/2002 15:32")
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("Ethereum")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("2,32")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("2 912,13€")])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [_vm._v("3210328982512")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [
-                _vm._v("12/12/2002 15:32")
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("Ethereum")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("1")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("1255,23€")])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [_vm._v("3210328982512")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [
-                _vm._v("12/12/2002 15:32")
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("Dogecoin")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("0,23€")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("1000")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("230,13€")])
-            ])
-          ])
-        ]
-      )
+    return _c("div", { staticClass: "row px-3" }, [
+      _c("h4", [_c("i", { staticClass: "fas fa-wallet" }), _vm._v(" Wallet ")]),
+      _c("span", { staticClass: "ml-auto font-weight-light align-right" }, [
+        _vm._v("15N8ZpPq7Te9d8h7pURjZ102bSR3h8n8oAM")
+      ])
     ])
   }
 ]
@@ -58621,6 +58725,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_template_id_6dde423b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navbar_vue_vue_type_template_id_6dde423b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/OrderHistory.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/OrderHistory.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OrderHistory_vue_vue_type_template_id_76951251___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OrderHistory.vue?vue&type=template&id=76951251& */ "./resources/js/components/OrderHistory.vue?vue&type=template&id=76951251&");
+/* harmony import */ var _OrderHistory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OrderHistory.vue?vue&type=script&lang=js& */ "./resources/js/components/OrderHistory.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _OrderHistory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _OrderHistory_vue_vue_type_template_id_76951251___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _OrderHistory_vue_vue_type_template_id_76951251___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/OrderHistory.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/OrderHistory.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/OrderHistory.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderHistory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./OrderHistory.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OrderHistory.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderHistory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/OrderHistory.vue?vue&type=template&id=76951251&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/OrderHistory.vue?vue&type=template&id=76951251& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderHistory_vue_vue_type_template_id_76951251___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./OrderHistory.vue?vue&type=template&id=76951251& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OrderHistory.vue?vue&type=template&id=76951251&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderHistory_vue_vue_type_template_id_76951251___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderHistory_vue_vue_type_template_id_76951251___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Owned-crypto.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/Owned-crypto.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Owned-crypto.vue?vue&type=template&id=48442758& */ "./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758&");
+/* harmony import */ var _Owned_crypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Owned-crypto.vue?vue&type=script&lang=js& */ "./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Owned_crypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Owned-crypto.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Owned_crypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Owned-crypto.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Owned_crypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Owned-crypto.vue?vue&type=template&id=48442758& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

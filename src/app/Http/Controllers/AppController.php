@@ -12,7 +12,7 @@ class AppController extends Controller
     public function init(){
         $user = Auth::user();
         if(Auth::user()){
-            $user = User::with('wallet')->find(Auth::user()->id);
+            $user = User::with('wallet.OwnedCrypto.Cryptocurrency')->find(Auth::user()->id);
         }else{
             $user = null;
         }

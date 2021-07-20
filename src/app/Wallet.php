@@ -19,4 +19,8 @@ class Wallet extends Model
     {
         return $this->hasOne('App\User');
     }
+
+    public function ownedCrypto(){
+        return $this->hasMany('App\OwnedCrypto');
+    }
 }

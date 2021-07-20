@@ -23,6 +23,9 @@ class OrderController extends Controller
             $order->save();
 
             if($order != null){
+                //owned_crypto
+                
+
                 //remove order ammount from available money
                 $wallet_id = Auth::user()->wallet->id;
                 $wallet = Wallet::find($wallet_id);
@@ -35,6 +38,13 @@ class OrderController extends Controller
             }else{
                 return response()->json(['error' => 'Erreur, ordre non executé.'], 401);
             }
+        }
+    }
+
+    public function list(){
+        if(Auth::user()){
+            $orders = Order::with('Cryptocurrency')->where('user_id', Auth::user()->id)->get();
+            return response()->json(['orders' => $orders], 200);
         }
     }
 }

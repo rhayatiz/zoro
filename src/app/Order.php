@@ -19,4 +19,9 @@ class Order extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function cryptocurrency()
+    {
+        return $this->belongsTo('App\Cryptocurrency');
+    }
 }
