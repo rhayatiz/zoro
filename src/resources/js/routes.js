@@ -29,5 +29,9 @@ export default [
         path: '/Wallet',
         component: Wallet,
         name: 'wallet'
+    },
+    {
+        path: '*',
+        redirect: '/'
     }
 ];

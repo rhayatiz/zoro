@@ -22,27 +22,35 @@
 
 <script>
 export default {
+    props: ['app'],
     data() {
         return {
-            availableMoney: 0    
+            availableMoney: 0,
         }
     },
 
     mounted() {
         this.init();
-        this.availableMoney = this.formatAvailableMoney();
+        this.formatAvailableMoney();
     },
-    
+    watch: {
+        'this.app.user.wallet.available_money': {
+            // the callback will be called immediately after the start of the observation
+            immediate: true, 
+            handler (val, oldVal) {
+                console.log('availableMoney value has changed');
+                this.formatAvailableMoney();
+            }
+        }
+    },
     methods: {
         init: function(){
-            console.log(this.$parent.user.wallet.available_money);
-            this.availableMoney = this.$parent.user.wallet.available_money;
         },
         formatAvailableMoney: function(){
-            let x = this.$parent.user.wallet.available_money;
+            let x = this.app.user.wallet.available_money;
             var parts = x.toString().split(".");
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-            return parts.join(",");
+            this.availableMoney = parts.join(",");
         }
     },
 }

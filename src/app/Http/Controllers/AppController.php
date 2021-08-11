@@ -22,7 +22,7 @@ class AppController extends Controller
 
     public function login(Request $request){
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password], true)){
-            return response()->json(Auth::user(), 200);
+            return response()->json($this->init(), 200);
         }else{
             return response()->json(['error' => 'Identification impossible'], 401);
         };

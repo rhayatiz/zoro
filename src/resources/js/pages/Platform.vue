@@ -22,7 +22,7 @@
                         </div>
                         <!-- buy -->
                         <div v-if="action == 'buy'"  class="col-12">
-                            <PlatformBuy :app='this'/>
+                            <PlatformBuy :app='this.app'/>
                         </div>
                         <!-- sell -->
                         <div v-if="action == 'Sell'"  class="col-12">
@@ -95,7 +95,6 @@ export default {
             }
         }
     },
-
     mounted() {
         //Choose eth by default
         this.DebugEth();

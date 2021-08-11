@@ -2763,27 +2763,37 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.init();
+    var _this = this;
+
+    this.$router.onReady(function () {
+      return _this.routeLoaded();
+    });
   },
   methods: {
     init: function init() {
-      var _this = this;
+      var _this2 = this;
 
       this.loading = true;
       this.req.get('auth/init').then(function (response) {
-        _this.user = response.data.user;
-        _this.loading = false;
-        _this.initiated = true;
+        console.log('init response');
+        console.log(response);
+        _this2.user = response.data.user;
+        _this2.loading = false;
+        _this2.initiated = true;
       });
       console.log(this.user);
     },
-    getHistory: function getHistory() {
-      this.req.get('https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=EUR&apikey=HJG1A2UT9PH8VMGO').then(function (response) {
-        console.log(response);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    }
+    routeLoaded: function routeLoaded() {
+      this.init();
+    } // getHistory : function(){
+    //     this.req.get('https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=EUR&apikey=HJG1A2UT9PH8VMGO')
+    //         .then(response => {
+    //             console.log(response)
+    //         }).catch(error => {
+    //             console.log(error);
+    //         });
+    // }
+
   }
 });
 
@@ -2821,6 +2831,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['app'],
   data: function data() {
     return {
       availableMoney: 0
@@ -2828,18 +2839,25 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.init();
-    this.availableMoney = this.formatAvailableMoney();
+    this.formatAvailableMoney();
+  },
+  watch: {
+    'this.app.user.wallet.available_money': {
+      // the callback will be called immediately after the start of the observation
+      immediate: true,
+      handler: function handler(val, oldVal) {
+        console.log('availableMoney value has changed');
+        this.formatAvailableMoney();
+      }
+    }
   },
   methods: {
-    init: function init() {
-      console.log(this.$parent.user.wallet.available_money);
-      this.availableMoney = this.$parent.user.wallet.available_money;
-    },
+    init: function init() {},
     formatAvailableMoney: function formatAvailableMoney() {
-      var x = this.$parent.user.wallet.available_money;
+      var x = this.app.user.wallet.available_money;
       var parts = x.toString().split(".");
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-      return parts.join(",");
+      this.availableMoney = parts.join(",");
     }
   }
 });
@@ -3024,15 +3042,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PlatformBuy',
-  data: function data() {
-    return {
-      ownedCryptos: this.$parent.$parent.user.wallet.owned_crypto
-    };
-  },
+  name: 'OwnedCrypto',
+  props: ['ownedCryptos'],
   methods: {
     init: function init() {
+      console.log("owned crypto");
       console.log(this.ownedCrypto);
+      console.log("owned crypto..");
     }
   },
   mounted: function mounted() {
@@ -3081,6 +3097,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['app'],
   name: 'PlatformBuy',
   data: function data() {
     return {
@@ -3092,7 +3109,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    init: function init() {},
+    init: function init() {
+      console.log('platform-buy init()...');
+      console.log(this.app.user);
+    },
     //update total when quantity changes
     updateTotal: function updateTotal() {
       // this.total = this.total.replace(/,/g, '.');
@@ -3109,7 +3129,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     //if total exceeds available money, add error
     hasEnoughMoney: function hasEnoughMoney() {
-      if (this.$parent.$parent.user.wallet.available_money - this.total < 0) {
+      if (this.app.user.wallet.available_money - this.total < 0) {
         this.errors.not_enough_money = 'Vous n\'avez pas assez de liquidité.';
       } else {
         delete this.errors.not_enough_money;
@@ -3119,7 +3139,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       //check if user has enough money
-      if (this.$parent.$parent.user.wallet.available_money - this.total > 0) {
+      if (this.app.user.wallet.available_money - this.total > 0) {
         //confirm/cancel buy
         console.log('buying ' + this.cryptocurrency);
         console.log('ammount ' + this.total); //execute order
@@ -3130,9 +3150,10 @@ __webpack_require__.r(__webpack_exports__);
           quantity: this.quantity,
           cryptocurrencyCode: this.cryptocurrency
         };
-        this.$parent.app.req.post('order/new', data).then(function (response) {
-          _this.$parent.$parent.user = response.data.user;
-          console.log(_this.$parent.$parent.user);
+        this.app.req.post('order/new', data).then(function (response) {
+          console.log('buying crypto... response');
+          console.log(response);
+          _this.app.user = response.data.user;
         })["catch"](function (error) {
           console.log(error);
         }); //snackbar order executed
@@ -3357,7 +3378,7 @@ __webpack_require__.r(__webpack_exports__);
           password: this.password
         };
         this.app.req.post('auth/login', data).then(function (response) {
-          _this.app.user = response.data;
+          _this.app.user = response.data.original.user;
 
           _this.$router.push("/platform");
         })["catch"](function (error) {
@@ -3715,7 +3736,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3727,8 +3747,14 @@ __webpack_require__.r(__webpack_exports__);
     OrderHistory: _components_OrderHistory__WEBPACK_IMPORTED_MODULE_0__["default"],
     OwnedCrypto: _components_Owned_crypto__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  mounted: function mounted() {},
-  methods: {}
+  mounted: function mounted() {
+    this.init();
+  },
+  methods: {
+    init: function init() {
+      this.app.user.original ? this.user = this.app.user.original.user : this.user = this.app.user;
+    }
+  }
 });
 
 /***/ }),
@@ -41164,7 +41190,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm.user ? _c("foot", { attrs: { app: this } }) : _vm._e()
+      this.user != null ? _c("foot", { attrs: { app: this } }) : _vm._e()
     ],
     1
   )
@@ -42139,7 +42165,7 @@ var render = function() {
                       ? _c(
                           "div",
                           { staticClass: "col-12" },
-                          [_c("PlatformBuy", { attrs: { app: this } })],
+                          [_c("PlatformBuy", { attrs: { app: this.app } })],
                           1
                         )
                       : _vm._e(),
@@ -42438,9 +42464,11 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("OwnedCrypto"),
+      _c("OwnedCrypto", {
+        attrs: { ownedCryptos: this.app.user.wallet.owned_crypto }
+      }),
       _vm._v(" "),
-      _c("OrderHistory")
+      _c("OrderHistory", { attrs: { app: this.app } })
     ],
     1
   )
@@ -58500,6 +58528,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.component('spinner', __webpack_require__(/*! vue-simple-spinner */ "./node_modules/vue-simple-spinner/dist/vue-simple-spinner.js"));
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  mode: 'hash',
   routes: _routes__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 new Vue({
@@ -59480,6 +59509,9 @@ __webpack_require__.r(__webpack_exports__);
   path: '/Wallet',
   component: _pages_Wallet__WEBPACK_IMPORTED_MODULE_4__["default"],
   name: 'wallet'
+}, {
+  path: '*',
+  redirect: '/'
 }]);
 
 /***/ }),

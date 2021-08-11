@@ -7,10 +7,9 @@
       </div>
 
       <!-- Wallet content (owned crypto) -->
-      <OwnedCrypto />
-
+      <OwnedCrypto :ownedCryptos="this.app.user.wallet.owned_crypto" />
       <!------------------ ORDER HISTORY ------------->
-      <OrderHistory />
+      <OrderHistory :app="this.app"/>
 
   </div>
 </template>
@@ -24,7 +23,6 @@ export default {
   
   data() {
     return {
-      
     }
   },
 
@@ -34,10 +32,15 @@ export default {
   },
 
   mounted() {
-    
+    this.init();
   },
 
   methods: {
+    init: function(){
+      this.app.user.original ? 
+      this.user = this.app.user.original.user
+      : this.user = this.app.user; 
+    }
   },
 }
 </script>

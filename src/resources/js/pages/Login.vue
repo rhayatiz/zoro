@@ -63,8 +63,8 @@ export default {
                 };
                 
                 this.app.req.post('auth/login', data).then(response => {
-                        this.app.user = response.data;
-                        this.$router.push("/platform");
+                    this.app.user = response.data.original.user;
+                    this.$router.push("/platform");
                 }).catch(error => {
                         this.errors.push("Identification impossible.")
                 })

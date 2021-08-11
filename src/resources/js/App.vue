@@ -13,7 +13,7 @@
 
             
         </div>
-        <foot v-if="user" :app="this"></foot>
+        <foot v-if="this.user != null" :app="this"></foot>
     </div>
 </template>
 
@@ -42,27 +42,32 @@ export default {
         }
     },
     mounted() {
-        this.init();
+        this.$router.onReady(() => this.routeLoaded());
     },
     methods: {
         init(){
             this.loading = true;
 
             this.req.get('auth/init').then(response => {
+                console.log('init response')
+                console.log(response);
                 this.user = response.data.user;
                 this.loading = false;
                 this.initiated = true;
             });
             console.log(this.user);
         },
-        getHistory : function(){
-            this.req.get('https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=EUR&apikey=HJG1A2UT9PH8VMGO')
-                .then(response => {
-                    console.log(response)
-                }).catch(error => {
-                    console.log(error);
-                });
+        routeLoaded() {
+            this.init();
         }
+        // getHistory : function(){
+        //     this.req.get('https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=EUR&apikey=HJG1A2UT9PH8VMGO')
+        //         .then(response => {
+        //             console.log(response)
+        //         }).catch(error => {
+        //             console.log(error);
+        //         });
+        // }
     }
 
 };

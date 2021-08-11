@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 Vue.component('spinner', require('vue-simple-spinner'));
 
 const router = new VueRouter({
+    mode: 'hash',
     routes
 });
 

@@ -34,17 +34,13 @@
 
 <script>
 export default {
-    name: 'PlatformBuy',
-
-    data(){
-        return {
-            ownedCryptos: this.$parent.$parent.user.wallet.owned_crypto
-        }
-    },
-
+    name: 'OwnedCrypto',
+    props: ['ownedCryptos'],
     methods: {
         init: function(){
+            console.log("owned crypto");
             console.log(this.ownedCrypto);
+            console.log("owned crypto..");
         }
     },
 

@@ -30,6 +30,7 @@
 <script>
 
 export default {
+    props: ['app'],
     name: 'PlatformBuy',
     data(){
         return {
@@ -43,6 +44,8 @@ export default {
 
     methods: {
         init: function(){
+            console.log('platform-buy init()...');
+            console.log(this.app.user);
         },
 
         //update total when quantity changes
@@ -63,7 +66,7 @@ export default {
 
         //if total exceeds available money, add error
         hasEnoughMoney: function(){
-            if( this.$parent.$parent.user.wallet.available_money - this.total < 0 ){
+            if( this.app.user.wallet.available_money - this.total < 0 ){
                 this.errors.not_enough_money = 'Vous n\'avez pas assez de liquidité.';
             }else{
                 delete this.errors.not_enough_money;
@@ -72,7 +75,7 @@ export default {
 
         buy: function(){
             //check if user has enough money
-            if( this.$parent.$parent.user.wallet.available_money - this.total > 0 ){
+            if( this.app.user.wallet.available_money - this.total > 0 ){
                 //confirm/cancel buy
                 console.log('buying '+this.cryptocurrency);
                 console.log('ammount '+this.total);
@@ -83,9 +86,10 @@ export default {
                     quantity: this.quantity,
                     cryptocurrencyCode: this.cryptocurrency
                 };
-                this.$parent.app.req.post('order/new', data).then(response => {
-                    this.$parent.$parent.user = response.data.user;
-                    console.log(this.$parent.$parent.user);
+                this.app.req.post('order/new', data).then(response => {
+                    console.log('buying crypto... response');
+                    console.log(response);
+                    this.app.user = response.data.user;
                 }).catch(error => {
                     console.log(error);
                 })
