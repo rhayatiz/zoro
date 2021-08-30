@@ -6,8 +6,6 @@
             <th>Cryptocurrency</th>
             <th class="text-center">Quantity</th>
             <th class="text-center">Average price</th>
-            <th class="text-center">24H Variation</th>
-            <th class="text-center">Current Value</th>
             <th class="text-center"></th>
           </tr>
         </thead>
@@ -22,8 +20,6 @@
             <td class="text-center">{{ ownedCrypto.cryptocurrency.name }}</td>
             <td class="text-center">{{ ownedCrypto.quantity }}</td>
             <td class="text-center">{{ ownedCrypto.average_price }}</td>
-            <td class="text-center">24h%</td>
-            <td class="text-center">current_value €</td>
             <td class="text-center">Sell</td>
           </tr>
         </tbody>

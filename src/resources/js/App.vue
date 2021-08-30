@@ -13,7 +13,7 @@
 
             
         </div>
-        <foot v-if="this.user != null" :app="this"></foot>
+        <foot v-if="this.user != null" :app="this" :key="this.footerKey"></foot>
     </div>
 </template>
 
@@ -32,6 +32,7 @@ export default {
     },
     data(){
         return {
+            footerKey: 1,
             alphaVantageKey: 'HJG1A2UT9PH8VMGO',
             user: null,
             loading: false,
@@ -43,6 +44,12 @@ export default {
     },
     mounted() {
         this.$router.onReady(() => this.routeLoaded());
+    },
+    watch: {
+        user: function () {
+            console.log ("App.vue, user has been updated");
+            this.footerKey++;
+        }
     },
     methods: {
         init(){

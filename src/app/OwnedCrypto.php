@@ -8,7 +8,7 @@ class OwnedCrypto extends Model
 {
     protected $table = 'owned_crypto';
     protected $fillable = ['cryptocurrency_id', 'wallet_id', 'quantity', 'average_price'];
-    public $timestamps = true;
+    public $timestamps = false;
 
     public function wallet()
     {

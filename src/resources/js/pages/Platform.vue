@@ -54,13 +54,11 @@
 
 <script>
 import Autocomplete from '@trevoreyre/autocomplete-vue';
-import ApexCharts from 'apexcharts';
 import '@trevoreyre/autocomplete-vue/dist/style.css';
 import Highcharts from "highcharts";
 import Stock from "highcharts/modules/stock";
 import {Chart} from 'highcharts-vue';
 import PlatformBuy from '../components/Platform-buy';
-
 
 export default {
     props: ['app'],

@@ -73,6 +73,10 @@ export default {
             }
         },
 
+        showToast(text){
+            this.$toast(text);  // or this.$toast.bottom('bottom'); 
+        },
+
         buy: function(){
             //check if user has enough money
             if( this.app.user.wallet.available_money - this.total > 0 ){
@@ -87,9 +91,9 @@ export default {
                     cryptocurrencyCode: this.cryptocurrency
                 };
                 this.app.req.post('order/new', data).then(response => {
-                    console.log('buying crypto... response');
-                    console.log(response);
-                    this.app.user = response.data.user;
+                    this.$parent.$parent.user = response.data.user;
+                    this.$parent.action = false;
+                    this.showToast('L\'ordre a été exécuté!')
                 }).catch(error => {
                     console.log(error);
                 })

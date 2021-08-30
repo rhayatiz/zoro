@@ -8,7 +8,7 @@
                     <div class="mb-2">Join us now and start trading cryptocurrencies !</div>
                     <div>Sign up to claim your 100 000$ Virtual money.</div>
                     <div class="mt-3">
-                        <router-link v-if="this.user != null" to="/register" class="nav-item btn-signup">Sign up</router-link>
+                        <router-link v-if="this.app.user != null" to="/register" class="nav-item btn-signup">Sign up</router-link>
                     </div>
                 </div>
             </div>
