@@ -95,7 +95,7 @@ export default {
     },
     mounted() {
         //Choose eth by default
-        this.DebugEth();
+        //this.DebugEth();
 
         this.getCryptoCurrenciesList();
         Stock(Highcharts);

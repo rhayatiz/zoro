@@ -2832,7 +2832,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    init: function init() {},
+    init: function init() {
+      console.log('initiating foot');
+    },
     formatAvailableMoney: function formatAvailableMoney() {
       var x = this.app.user.wallet.available_money;
       var parts = x.toString().split(".");
@@ -2853,6 +2855,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -3488,7 +3491,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     //Choose eth by default
-    this.DebugEth();
+    //this.DebugEth();
     this.getCryptoCurrenciesList();
     highcharts_modules_stock__WEBPACK_IMPORTED_MODULE_3___default()(highcharts__WEBPACK_IMPORTED_MODULE_2___default.a);
   },
@@ -41266,7 +41269,7 @@ var staticRenderFns = [
       _c(
         "div",
         { staticClass: "pill wl-green text-center px-2 font-weight-bold" },
-        [_vm._v("+213,12 (+6%)")]
+        [_vm._v("$DAILY %$")]
       )
     ])
   }
@@ -41318,10 +41321,19 @@ var render = function() {
                 _c(
                   "router-link",
                   {
-                    staticClass: "nav-item text-white",
+                    staticClass: "nav-item text-white mr-3",
                     attrs: { to: "/platform" }
                   },
                   [_vm._v("Platforme")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "nav-item text-white",
+                    attrs: { to: "/Wallet" }
+                  },
+                  [_vm._v("Portefeuille")]
                 )
               ],
               1
@@ -42450,7 +42462,12 @@ var render = function() {
     "div",
     { staticClass: "mt-4 container text-white" },
     [
-      _vm._m(0),
+      _c("div", { staticClass: "row px-3" }, [
+        _vm._m(0),
+        _c("span", { staticClass: "ml-auto font-weight-light align-right" }, [
+          _vm._v(_vm._s(this.app.user.wallet.address))
+        ])
+      ]),
       _vm._v(" "),
       _c("OwnedCrypto", {
         attrs: { ownedCryptos: this.app.user.wallet.owned_crypto }
@@ -42466,11 +42483,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row px-3" }, [
-      _c("h4", [_c("i", { staticClass: "fas fa-wallet" }), _vm._v(" Wallet ")]),
-      _c("span", { staticClass: "ml-auto font-weight-light align-right" }, [
-        _vm._v("15N8ZpPq7Te9d8h7pURjZ102bSR3h8n8oAM")
-      ])
+    return _c("h4", [
+      _c("i", { staticClass: "fas fa-wallet" }),
+      _vm._v(" Wallet ")
     ])
   }
 ]
@@ -59732,8 +59747,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\meep\Documents\dev\MTC\src\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\meep\Documents\dev\MTC\src\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\meep\Documents\dev\zoro\src\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\meep\Documents\dev\zoro\src\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

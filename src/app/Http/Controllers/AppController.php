@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Wallet;
 use Illuminate\Support\Facades\Crypt;
 
 class AppController extends Controller
@@ -39,10 +40,20 @@ class AppController extends Controller
         $user->name = $request->name;
         $user->username = $request->username;
         $user->password = bcrypt($request->password);
+        //Wallet
+        $w = new Wallet();
+        $w->available_money = 50000.00;
+        $w->address = sha1(time());
+        $w->save();
+        $user->wallet_id = $w->id;
+
         $user->save();
 
         Auth::login($user);
-        return response()->json($user, 200);
+        return response()->json(
+            User::with('wallet.OwnedCrypto.Cryptocurrency')->find(Auth::user()->id),
+            200
+        );
     }
 
     public function logout(){

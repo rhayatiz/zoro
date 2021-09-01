@@ -3,7 +3,7 @@
         <div class="container align-middle d-flex justify-content-between">
             <div class="menu d-flex flex-column">
                  <div class="text-center text-white">DAILY W/L</div>
-                 <div class="pill wl-green text-center px-2 font-weight-bold">+213,12 (+6%)</div>
+                 <div class="pill wl-green text-center px-2 font-weight-bold">$DAILY %$</div>
             </div>
 
             <div class="menu d-flex flex-column">
@@ -45,6 +45,7 @@ export default {
     },
     methods: {
         init: function(){
+            console.log('initiating foot');
         },
         formatAvailableMoney: function(){
             let x = this.app.user.wallet.available_money;

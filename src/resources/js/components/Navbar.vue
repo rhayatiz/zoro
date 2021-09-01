@@ -11,7 +11,8 @@
 
             <ul v-if="this.app.user != null" class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <router-link to="/platform" class="nav-item text-white">Platforme</router-link>
+                    <router-link to="/platform" class="nav-item text-white mr-3">Platforme</router-link>
+                    <router-link to="/Wallet" class="nav-item text-white">Portefeuille</router-link>
                 </li>
             </ul>
 

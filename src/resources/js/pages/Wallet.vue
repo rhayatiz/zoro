@@ -3,7 +3,7 @@
 
       <!------------------ WALLLET ------------->
       <div class="row px-3">
-      <h4><i class="fas fa-wallet"></i> Wallet </h4><span class="ml-auto font-weight-light align-right">15N8ZpPq7Te9d8h7pURjZ102bSR3h8n8oAM</span>
+      <h4><i class="fas fa-wallet"></i> Wallet </h4><span class="ml-auto font-weight-light align-right">{{ this.app.user.wallet.address }}</span>
       </div>
 
       <!-- Wallet content (owned crypto) -->
