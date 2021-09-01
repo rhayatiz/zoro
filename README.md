@@ -23,7 +23,7 @@ ZORO is a papertrading cryptocurrency exchange platform.
 
 
 ***
-
+:construction: Not working ATM
 ### Installation : You have Docker :whale:
 #### Requirements
 - Docker, Docker Compose
