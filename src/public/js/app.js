@@ -3025,10 +3025,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCrypto.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OwnedCrypto.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3063,19 +3063,107 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['Cryptocurrency', 'name', 'code', 'quantity'],
   name: 'OwnedCrypto',
-  props: ['ownedCryptos'],
+  data: function data() {
+    return {
+      sellState: false,
+      price: 0
+    };
+  },
   methods: {
     init: function init() {
-      console.log("owned crypto");
-      console.log(this.ownedCrypto);
-      console.log("owned crypto..");
+      this.fetchPrice(this.code);
+    },
+    cancelSell: function cancelSell() {
+      this.sellState = false;
+    },
+    initiateSell: function initiateSell(cryptocurrencyCode) {
+      this.sellState = true;
+    },
+    fetchPrice: function fetchPrice(cryptocurrencyCode) {
+      var _this = this;
+
+      //fetch crypto price from Alphavantage when choosing crypto from list
+      this.$parent.$parent.app.req.get('https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=' + cryptocurrencyCode + '&to_currency=EUR&apikey=' + this.$parent.$parent.app.alphaVantageKey).then(function (response) {
+        _this.price = parseFloat(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate']).toFixed(2);
+        console.log('fetched price ==' + _this.price);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
   mounted: function mounted() {
     this.init();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCryptoList.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OwnedCryptoList.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OwnedCrypto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OwnedCrypto */ "./resources/js/components/OwnedCrypto.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'OwnedCryptoList',
+  props: ['ownedCryptos'],
+  components: {
+    OwnedCrypto: _OwnedCrypto__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -3743,14 +3831,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_OrderHistory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/OrderHistory */ "./resources/js/components/OrderHistory.vue");
-/* harmony import */ var _components_Owned_crypto__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Owned-crypto */ "./resources/js/components/Owned-crypto.vue");
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _components_OwnedCryptoList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/OwnedCryptoList */ "./resources/js/components/OwnedCryptoList.vue");
 //
 //
 //
@@ -3769,7 +3850,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     OrderHistory: _components_OrderHistory__WEBPACK_IMPORTED_MODULE_0__["default"],
-    OwnedCrypto: _components_Owned_crypto__WEBPACK_IMPORTED_MODULE_1__["default"]
+    OwnedCryptoList: _components_OwnedCryptoList__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     this.init();
@@ -8319,6 +8400,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, "\n.order-container[data-v-8a00ae1a] {\r\n  padding: 10px 20px;\r\n  margin-bottom: 2px;\n}\n.font-weight-bold[data-v-8a00ae1a] {\r\n  font-weight: 700 !important;\n}\n.order-bloc-text[data-v-8a00ae1a] {\r\n  margin-left: 5px;\n}\n.color-red[data-v-8a00ae1a] {\r\n    color: rgb(194, 67, 67);\n}\n.color-green[data-v-8a00ae1a] {\r\n    color: rgb(86, 192, 86);\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.ownedCrypto-container[data-v-e4bfb0aa] {\r\n  padding: 10px 20px;\r\n  margin-bottom: 2px;\n}\n.font-weight-bold[data-v-e4bfb0aa] {\r\n  font-weight: 700 !important;\n}\n.order-bloc-text[data-v-e4bfb0aa] {\r\n  margin-left: 5px;\n}\n.color-red[data-v-e4bfb0aa] {\r\n    color: rgb(194, 67, 67);\n}\n.color-green[data-v-e4bfb0aa] {\r\n    color: rgb(86, 192, 86);\n}\r\n", ""]);
 
 // exports
 
@@ -62083,6 +62183,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Sidebar.vue?vue&type=style&index=0&lang=css&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Sidebar.vue?vue&type=style&index=0&lang=css& ***!
@@ -63195,10 +63325,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758& ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCrypto.vue?vue&type=template&id=e4bfb0aa&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OwnedCrypto.vue?vue&type=template&id=e4bfb0aa&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -63212,30 +63342,138 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c(
+      "div",
+      {
+        staticClass:
+          "ownedCrypto-container row bg-white text-dark rounded shadow"
+      },
+      [
+        _c("div", { staticClass: "row w-100" }, [
+          _c("div", { staticClass: "col-3" }, [_vm._v(_vm._s(_vm.name))]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-3" }, [
+            _c("span", { staticClass: "font-weight-bold" }, [
+              _vm._v("Prix moyen:")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "order-bloc-text" }, [
+              _vm._v(_vm._s(_vm.price) + "€")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-3" }, [
+            _c("span", { staticClass: "font-weight-bold" }, [_vm._v("Qté:")]),
+            _vm._v(" "),
+            _c("span", [_vm._v(_vm._s(_vm.quantity))])
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ]),
+        _vm._v(" "),
+        _vm.sellState
+          ? _c("div", { staticClass: "row sell" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-3" }, [
+                _vm._v("Prix: " + _vm._s(_vm.price))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-3" }, [_vm._v(_vm._s(_vm.name))])
+            ])
+          : _vm._e()
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3" }, [
+      _c("span", { staticClass: "btn btn-sm btn-danger float-right" }, [
+        _vm._v("Sell")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3" }, [
+      _c("input", {
+        attrs: { type: "number", min: "0", "b-vind:max": "quantity" }
+      })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCryptoList.vue?vue&type=template&id=66d0fbe9&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/OwnedCryptoList.vue?vue&type=template&id=66d0fbe9& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row px-3" }, [
+      _vm._m(0),
+      _c("span", { staticClass: "ml-auto font-weight-light align-right" }, [
+        _vm._v(_vm._s(this.$parent.app.user.wallet.address))
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "ownedCrypto-List" },
+      [
+        _c("OwnedCrypto", {
+          attrs: { name: "Ethereum", code: "ETH", quantity: 1.32 }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
       "table",
       { staticClass: "table table-striped table-light mt-3 rounded shadow" },
       [
-        _vm._m(0),
+        _vm._m(1),
         _vm._v(" "),
         this.ownedCryptos.length == 0
-          ? _c("tbody", [_vm._m(1)])
+          ? _c("tbody", [_vm._m(2)])
           : _c(
               "tbody",
               _vm._l(_vm.ownedCryptos, function(ownedCrypto) {
-                return _c("tr", { key: ownedCrypto.id }, [
-                  _c("td", { staticClass: "text-center" }, [
-                    _vm._v(_vm._s(ownedCrypto.cryptocurrency.name))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-center" }, [
-                    _vm._v(_vm._s(ownedCrypto.quantity))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-center" }, [
-                    _vm._v(_vm._s(ownedCrypto.average_price))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-center" }, [_vm._v("Sell")])
+                return _c("div", { key: ownedCrypto.id }, [
+                  _c("tr", [
+                    _c("td", { staticClass: "text-center" }, [
+                      _vm._v(_vm._s(ownedCrypto.cryptocurrency.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-center" }, [
+                      _vm._v(_vm._s(ownedCrypto.quantity))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-center" }, [
+                      _vm._v(_vm._s(ownedCrypto.average_price))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-center" })
+                  ])
                 ])
               }),
               0
@@ -63245,6 +63483,15 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", [
+      _c("i", { staticClass: "fas fa-wallet" }),
+      _vm._v(" Wallet ")
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -64150,14 +64397,7 @@ var render = function() {
     "div",
     { staticClass: "mt-4 container text-white" },
     [
-      _c("div", { staticClass: "row px-3" }, [
-        _vm._m(0),
-        _c("span", { staticClass: "ml-auto font-weight-light align-right" }, [
-          _vm._v(_vm._s(this.app.user.wallet.address))
-        ])
-      ]),
-      _vm._v(" "),
-      _c("OwnedCrypto", {
+      _c("OwnedCryptoList", {
         attrs: { ownedCryptos: this.app.user.wallet.owned_crypto }
       }),
       _vm._v(" "),
@@ -64166,17 +64406,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h4", [
-      _c("i", { staticClass: "fas fa-wallet" }),
-      _vm._v(" Wallet ")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -80816,17 +81046,104 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Owned-crypto.vue":
-/*!**************************************************!*\
-  !*** ./resources/js/components/Owned-crypto.vue ***!
-  \**************************************************/
+/***/ "./resources/js/components/OwnedCrypto.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/OwnedCrypto.vue ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Owned-crypto.vue?vue&type=template&id=48442758& */ "./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758&");
-/* harmony import */ var _Owned_crypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Owned-crypto.vue?vue&type=script&lang=js& */ "./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js&");
+/* harmony import */ var _OwnedCrypto_vue_vue_type_template_id_e4bfb0aa_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OwnedCrypto.vue?vue&type=template&id=e4bfb0aa&scoped=true& */ "./resources/js/components/OwnedCrypto.vue?vue&type=template&id=e4bfb0aa&scoped=true&");
+/* harmony import */ var _OwnedCrypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OwnedCrypto.vue?vue&type=script&lang=js& */ "./resources/js/components/OwnedCrypto.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _OwnedCrypto_vue_vue_type_style_index_0_id_e4bfb0aa_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css& */ "./resources/js/components/OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _OwnedCrypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _OwnedCrypto_vue_vue_type_template_id_e4bfb0aa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _OwnedCrypto_vue_vue_type_template_id_e4bfb0aa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "e4bfb0aa",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/OwnedCrypto.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/OwnedCrypto.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/OwnedCrypto.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCrypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./OwnedCrypto.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCrypto.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCrypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css& ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCrypto_vue_vue_type_style_index_0_id_e4bfb0aa_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCrypto.vue?vue&type=style&index=0&id=e4bfb0aa&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCrypto_vue_vue_type_style_index_0_id_e4bfb0aa_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCrypto_vue_vue_type_style_index_0_id_e4bfb0aa_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCrypto_vue_vue_type_style_index_0_id_e4bfb0aa_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCrypto_vue_vue_type_style_index_0_id_e4bfb0aa_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/OwnedCrypto.vue?vue&type=template&id=e4bfb0aa&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/OwnedCrypto.vue?vue&type=template&id=e4bfb0aa&scoped=true& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCrypto_vue_vue_type_template_id_e4bfb0aa_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./OwnedCrypto.vue?vue&type=template&id=e4bfb0aa&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCrypto.vue?vue&type=template&id=e4bfb0aa&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCrypto_vue_vue_type_template_id_e4bfb0aa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCrypto_vue_vue_type_template_id_e4bfb0aa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/OwnedCryptoList.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/OwnedCryptoList.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OwnedCryptoList_vue_vue_type_template_id_66d0fbe9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OwnedCryptoList.vue?vue&type=template&id=66d0fbe9& */ "./resources/js/components/OwnedCryptoList.vue?vue&type=template&id=66d0fbe9&");
+/* harmony import */ var _OwnedCryptoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OwnedCryptoList.vue?vue&type=script&lang=js& */ "./resources/js/components/OwnedCryptoList.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -80836,9 +81153,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Owned_crypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _OwnedCryptoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _OwnedCryptoList_vue_vue_type_template_id_66d0fbe9___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _OwnedCryptoList_vue_vue_type_template_id_66d0fbe9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -80848,38 +81165,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/Owned-crypto.vue"
+component.options.__file = "resources/js/components/OwnedCryptoList.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js&":
-/*!***************************************************************************!*\
-  !*** ./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************/
+/***/ "./resources/js/components/OwnedCryptoList.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/OwnedCryptoList.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Owned_crypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Owned-crypto.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Owned-crypto.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Owned_crypto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCryptoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./OwnedCryptoList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCryptoList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCryptoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/OwnedCryptoList.vue?vue&type=template&id=66d0fbe9&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/OwnedCryptoList.vue?vue&type=template&id=66d0fbe9& ***!
+  \************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Owned-crypto.vue?vue&type=template&id=48442758& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Owned-crypto.vue?vue&type=template&id=48442758&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCryptoList_vue_vue_type_template_id_66d0fbe9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./OwnedCryptoList.vue?vue&type=template&id=66d0fbe9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/OwnedCryptoList.vue?vue&type=template&id=66d0fbe9&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCryptoList_vue_vue_type_template_id_66d0fbe9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Owned_crypto_vue_vue_type_template_id_48442758___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OwnedCryptoList_vue_vue_type_template_id_66d0fbe9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

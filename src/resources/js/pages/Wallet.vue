@@ -1,22 +1,15 @@
 <template>
   <div class="mt-4 container text-white">
-
-      <!------------------ WALLLET ------------->
-      <div class="row px-3">
-      <h4><i class="fas fa-wallet"></i> Wallet </h4><span class="ml-auto font-weight-light align-right">{{ this.app.user.wallet.address }}</span>
-      </div>
-
       <!-- Wallet content (owned crypto) -->
-      <OwnedCrypto :ownedCryptos="this.app.user.wallet.owned_crypto" />
+      <OwnedCryptoList :ownedCryptos="this.app.user.wallet.owned_crypto" />
       <!------------------ ORDER HISTORY ------------->
       <OrderHistory :app="this.app"/>
-
   </div>
 </template>
 
 <script>
 import OrderHistory from '../components/OrderHistory';
-import OwnedCrypto from '../components/Owned-crypto';
+import OwnedCryptoList from '../components/OwnedCryptoList';
 
 export default {
   props: ['app'],
@@ -28,7 +21,7 @@ export default {
 
   components: {
     OrderHistory: OrderHistory,
-    OwnedCrypto: OwnedCrypto
+    OwnedCryptoList: OwnedCryptoList
   },
 
   mounted() {

@@ -1,23 +1,23 @@
 <template lang="">
     <div>
-            <div class="order-container row bg-white text-dark rounded shadow">
-                <div class="col-4 col-xl">{{ date | formatDate }}</div>
-                <div class="col-4 col-xl text-capitalize" 
-                    v-bind:class="typeColor">{{ type }}</div>
-                <div class="col-4 col-xl">{{ cryptocurrency }}</div>
-                <div class="col-4 col-xl d-flex flex-column flex-sm-row">
-                    <span class="font-weight-bold">Prix:</span>
-                    <span class="order-bloc-text">{{ price }}€</span>
-                </div>
-                <div class="col-4 col-xl d-flex flex-column flex-sm-row">
-                    <span class="font-weight-bold">Qté:</span>
-                    <span class="order-bloc-text">{{ quantity }}</span>
-                </div>
-                <div class="col-4 col-xl d-flex flex-column flex-sm-row">
-                    <span class="order-bloc-title font-weight-bold">Total:</span>
-                    <span class="order-bloc-text">{{(quantity * price).toFixed(2)}} €</span>
-                </div>
-      </div>
+        <div class="order-container row bg-white text-dark rounded shadow">
+            <div class="col-4 col-xl">{{ date | formatDate }}</div>
+            <div class="col-4 col-xl text-capitalize" 
+                v-bind:class="typeColor">{{ type }}</div>
+            <div class="col-4 col-xl">{{ cryptocurrency }}</div>
+            <div class="col-4 col-xl d-flex flex-column flex-sm-row">
+                <span class="font-weight-bold">Prix:</span>
+                <span class="order-bloc-text">{{ price }}€</span>
+            </div>
+            <div class="col-4 col-xl d-flex flex-column flex-sm-row">
+                <span class="font-weight-bold">Qté:</span>
+                <span class="order-bloc-text">{{ quantity }}</span>
+            </div>
+            <div class="col-4 col-xl d-flex flex-column flex-sm-row">
+                <span class="order-bloc-title font-weight-bold">Total:</span>
+                <span class="order-bloc-text">{{(quantity * price).toFixed(2)}} €</span>
+            </div>
+        </div>
     </div>
 </template>
 

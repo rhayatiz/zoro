@@ -42,7 +42,7 @@ class AppController extends Controller
         $user->password = bcrypt($request->password);
         //Wallet
         $w = new Wallet();
-        $w->available_money = 50000.00;
+        $w->available_money = 100000.00;
         $w->address = sha1(time());
         $w->save();
         $user->wallet_id = $w->id;
