@@ -4,7 +4,7 @@
       <h4><i class="fas fa-history"></i> Order history</h4>
       </div>
         <div class="OrderList mx-3">
-          <template v-for="order in orders">
+          <template v-for="order in orders.data">
             <Order :key="order.id" 
             :type="order.type" 
             :date="order.created_at"
@@ -12,6 +12,8 @@
             :price="order.price"
             :quantity="order.quantity" />
           </template>
+
+          <pagination class="mt-2 mb-5 pb-3" align="center" :data="orders" @pagination-change-page="getResults"></pagination>
         </div>
 
   </div>
@@ -29,27 +31,20 @@ export default {
 
     data(){
         return {
-          orders: []
+          orders: {}
         }
     },
-
-    mounted() {
-      this.fetchOrders();
+    mounted(){
+      this.getResults();
     },
-
     methods: {
-        fetchOrders: function(){
-          this.$parent.app.req.get('order/list').then(response => {
-              if(response.data.orders.length > 0){
-                this.orders = response.data.orders;
-                console.log(response.data.orders);
-              }
-          }).catch(error => {
-              console.log(error);
+      getResults(page = 1){
+        axios.get('order/list?page=' + page)
+          .then(response => {
+            this.orders = response.data.orders;
           });
-        }
+      }
     },
-
 }
 </script>
 

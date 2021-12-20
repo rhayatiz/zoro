@@ -15,7 +15,7 @@
             </div>
             <div class="col-4 col-xl d-flex flex-column flex-sm-row">
                 <span class="order-bloc-title font-weight-bold">Total:</span>
-                <span class="order-bloc-text">{{(quantity * price).toFixed(2)}} €</span>
+                <span class="order-bloc-text">{{(price).toFixed(2)}} €</span>
             </div>
         </div>
     </div>

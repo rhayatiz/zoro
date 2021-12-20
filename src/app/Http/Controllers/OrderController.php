@@ -60,7 +60,7 @@ class OrderController extends Controller
 
     public function list(){
         if(Auth::user()){
-            $orders = Order::with('Cryptocurrency')->where('user_id', Auth::user()->id)->latest()->get();
+            $orders = Order::with('Cryptocurrency')->where('user_id', Auth::user()->id)->latest()->paginate(8);
             return response()->json(['orders' => $orders], 200);
         }
     }

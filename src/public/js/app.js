@@ -3586,6 +3586,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'OrderHistory',
@@ -3594,23 +3596,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      orders: []
+      orders: {}
     };
   },
   mounted: function mounted() {
-    this.fetchOrders();
+    this.getResults();
   },
   methods: {
-    fetchOrders: function fetchOrders() {
+    getResults: function getResults() {
       var _this = this;
 
-      this.$parent.app.req.get('order/list').then(function (response) {
-        if (response.data.orders.length > 0) {
-          _this.orders = response.data.orders;
-          console.log(response.data.orders);
-        }
-      })["catch"](function (error) {
-        console.log(error);
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get('order/list?page=' + page).then(function (response) {
+        _this.orders = response.data.orders;
       });
     }
   }
@@ -63834,7 +63832,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "order-bloc-text" }, [
-              _vm._v(_vm._s((_vm.quantity * _vm.price).toFixed(2)) + " €")
+              _vm._v(_vm._s(_vm.price.toFixed(2)) + " €")
             ])
           ]
         )
@@ -63871,7 +63869,7 @@ var render = function() {
       "div",
       { staticClass: "OrderList mx-3" },
       [
-        _vm._l(_vm.orders, function(order) {
+        _vm._l(_vm.orders.data, function(order) {
           return [
             _c("Order", {
               key: order.id,
@@ -63884,6 +63882,12 @@ var render = function() {
               }
             })
           ]
+        }),
+        _vm._v(" "),
+        _c("pagination", {
+          staticClass: "mt-2 mb-5 pb-3",
+          attrs: { align: "center", data: _vm.orders },
+          on: { "pagination-change-page": _vm.getResults }
         })
       ],
       2
