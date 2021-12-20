@@ -3,7 +3,7 @@
       <div class="row px-3 mt-5">
       <h4><i class="fas fa-history"></i> Order history</h4>
       </div>
-        <div class="OrderList">
+        <div class="OrderList mx-3">
           <template v-for="order in orders">
             <Order :key="order.id" 
             :type="order.type" 

@@ -10,6 +10,7 @@ import Toast from 'vue2-toast';
 Vue.use(VueRouter);
 Vue.use(Toast);
 Vue.component('spinner', require('vue-simple-spinner'));
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 const router = new VueRouter({
     mode: 'hash',
